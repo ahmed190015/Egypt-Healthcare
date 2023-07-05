@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<form action="doctor-sign-in.php" method="POST">
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bootstrap v5.2 Design Login Forms</title>
+                
+        <link rel="stylesheet" href="css/all.min.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css.map">
+    
+        <!-- Style -->
+        <link rel="stylesheet" href="css/fontawesome.css"> 
+    
+    
+        <link rel="stylesheet" href="css/style.css">
+    
+    </head>
+
+    <body class="container" >
+
+        <div class="text-center  text-primary mt-4"><img src="images/logo2.png" width="50" height="50"></div>
+        <h1 class="text-center">Egypt Healthcare</h1>
+  
+        <div class=" d-flex justify-content-center align-items-center vh-95">
+            <div class="col-md-4 p-5 shadow-sm border rounded-5 border-primary">
+                <h2 class="text-center mb-4"style="color: yellow;">Login Form</h2>
+                <form>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Email address</label>
+                        <input name="email" id="email" type="email" class="form-control border border-primary" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <br>
+                        <div class="alert alert-danger custom-alert">
+                           Please, Enter email is (AAAA@AAAA.AAAA)   
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                        <input name="password" id="password" type="password" class="form-control border border-primary" id="exampleInputPassword1">
+                        <br>
+                        <div class="alert alert-danger custom-alert">
+                            Password at least 8 characters
+                        </div>
+                    </div>
+                    <p class="small"><a class="" href="forget-password copy.html"  style="color:yellow;">Forgot password?</a></p>
+                    <div class="text-center col-md-12">
+                        <button class="btn btn-primary col-md-12 " type="submit">Login</button>
+                    </div>
+                </form>
+                <div class="mt-3">
+                    <p class="mb-0  text-center">Don't have an account? <a href="doctor-sign-up.html"
+                            class=" fw-bold" style="color:yellow;" >Sign
+                            Up</a></p>
+                </div>
+            </div>
+        </div>
+        <footer class="col-12 text-center" style="margin-top:64px;">
+            <div class=" text-center col-md-12">
+            <i class="fa-brands fa-facebook col-md-1 "></i>
+            <i class="fa-brands fa-youtube col-md-1"></i>
+            <i class="fa-brands fa-instagram col-md-1"></i>
+            <i class="fa-brands fa-twitter col-md-1"></i>
+          </div>
+          <div class="footer text-center col-md-12">&trade;2023 All copy rights reserved to Egypt Healthcare</div>
+        </footer>
+        <script src="js/jquery-3.6.4.min.js.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/all.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/signup.js"></script>
+        <script>
+             $(function() {
+                 // Email Validation
+                $('#email').blur(function() {
+                    var pattern = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                    var email = $("#email").val();
+                    if(pattern.test(email) && email !== '' ) {
+                        $(this).parent().find('.custom-alert').fadeOut(100);
+                    } else {
+                        $(this).parent().find('.custom-alert').fadeIn(100);
+                    }
+                });
+
+                // Password Validation
+                $('#password').blur(function() { 
+
+                    var password_length = $("#password").val().length;
+                    if(password_length < 8 ) {
+                        $(this).parent().find('.custom-alert').fadeIn(100);
+                    } else {
+                        $(this).parent().find('.custom-alert').fadeOut(100);
+                    }
+                });
+
+            });
+        </script>
+       
+    
+    </body>
+    
+</html>

@@ -1,0 +1,353 @@
+
+
+  *{
+    color: rgb(8, 8, 8);
+    font-weight: 500;
+    font-size: 22px;
+    font-family: 'Times New Roman', Times, serif;
+    background-image: ;
+
+  }
+
+  body{
+  
+    /* background-image: -webkit-linear-gradient(to bottom right, #014872,#A0EACF);
+    
+    background-image: linear-gradient(to bottom right, #014872,#A0EACF); */
+
+    background-color: rgba(255, 255, 255, 0.555);
+
+    width: 100vw;
+    height: 100%;
+    color: white;
+
+
+  }
+
+
+ 
+    h1{
+      color:yellow;
+    }
+
+::selection{
+  color: #fff;
+  background: #1a81ff;
+}
+
+*:not(button),input[not:(type="search")]{
+  white-space:wrap;
+
+}
+
+a{
+  text-decoration: none;
+  color:rgb(0, 0, 0);
+ } 
+
+form .content .details p{
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+form textarea{
+  resize: none;
+  font-size: 18px;
+  margin-top: 30px;
+  min-height: 50px;
+}
+form textarea::placeholder{
+}
+form textarea:focus::placeholder{
+  color: #b3b3b3;
+}
+
+
+
+
+form .button{
+  height: 53px;
+  color: #000000;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  color: #0080ff;
+  cursor: no-drop;
+  border-radius: 7px;
+  background: #e2e5e9;
+  transition: all 0.3s ease;
+}
+form textarea:valid ~ .button{
+  color: #fff;
+  cursor: pointer;
+  background: #4599FF;
+}
+form textarea:valid ~ .button:hover{
+  background: #0073ff;
+}
+
+
+.doctors-img, .hospitals-img,.patient-img{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  align-self: center;
+}
+
+.request-child{
+  background-color: #a99;
+  border-radius: 20px;
+
+}
+
+/* .doctor-details-side, .hospital-details-side{
+
+
+  position: fixed;
+} */
+
+
+
+
+
+
+.cancel-post ,.cancel-poll, .cancel-video-image{
+    
+                    position: absolute;
+                    right: 20px;
+                    font-size: 32px;
+                    top: 5px;
+                    background-color: yellow;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    display: flex;
+                    justify-content: center;
+                    align-content: center;
+                    align-items: center;
+
+                  
+}
+
+.cancel-post i,.cancel-poll i, .cancel-video-image i{
+display: flex;
+justify-content: center;
+align-content: center;
+align-items: center;
+}
+
+
+
+
+
+
+
+.calendar td{
+
+  padding: 3px 10px 3px 10px;
+  
+}
+
+/* 
+.calendar td input{
+
+  width: 80px;  
+  } */
+
+  
+  
+
+.calendar input{
+
+   background-color: transparent;
+}
+
+.calendar td input{
+
+  outline: none;
+  border: none;
+}  
+.calendar td input::placeholder{
+  color: #ffffff;
+}
+
+
+
+
+
+
+
+
+ 
+  .poll header{
+    font-size: 22px;
+    font-weight: 600;
+    padding: 17px 0;
+    text-align: center;
+    border-bottom: 1px solid #bfbfbf;
+  }
+  #poll,.video-image,.post{
+    border: #eee,solid,2px;
+    background-color: #eee;
+    border-radius: 30px;
+  }
+
+
+  .poll-caption{
+               max-height:20vh;
+                word-break:keep-all;
+                overflow-y:auto;
+                padding-top: 10px;
+
+  }
+
+  .polllll{
+    
+    background-color: #eee;
+    display: flex;
+    align-items: center;
+    align-content: center;
+
+  }
+
+  .polllll-form{
+    max-height: 200px;
+    overflow: auto;
+
+  }
+  .poll-value{
+    border-radius: 40px;
+    background-color: #ffffff;
+    
+  }
+  .poll-value input{
+    margin:3px 15px;
+  }
+ 
+
+
+
+
+  form .options {
+    height: 220px;
+    width: 95%;
+    padding: 10 15px;
+    border-radius: 7px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    overflow-y:auto;
+
+  }
+
+  #options input{
+    width: 95%;
+    word-wrap: break-word;
+  }
+
+
+  .post-caption{
+
+   max-height:15vh;
+  }
+  form .options input{
+    overflow-y:auto;
+
+      font-size: 15px;
+      font-weight: 500;
+      margin: 10px 25px 0 25px;
+      outline: none;
+      border: none;
+      
+      
+  }
+ 
+.contactt *{
+  color: yellow;
+}
+
+.contactt input{
+  color: rgb(0, 0, 0);
+}
+.contactt{
+
+  border-radius:50px;
+
+}
+  footer{
+    color: #e5ff00;
+    font-size: 30px;
+    background-color: rgb(190, 174, 174);
+    width: 100vw;
+    width: 100%;
+    margin-bottom: 0;
+    padding: 0px;
+    
+
+  }
+ 
+
+ .footer{
+    font-size: 16px;
+  }
+  .container{
+    max-width: 100%; 
+    max-height: 100%; 
+    
+
+  }
+  
+ .video, .post-img,.txt-post{
+  width: 55vw;
+  height: auto;
+ }
+ .post-caption{
+  max-height: 150px;
+  min-height: 50px;
+  overflow: auto;
+  scroll-behavior: smooth;
+}
+
+.video-image-life,.text-post,.polllll,.icons{
+
+  background-image: -webkit-linear-gradient(to bottom right,#FBC2EB,#78A3EB);
+    
+  background-image: linear-gradient(to bottom right, #FBC2EB,#78A3EB);
+  
+/* background-color:rgb(235, 33, 77); */
+
+  color:white !important;
+  font-size: 18px;
+  border-radius: 20px;
+
+  
+
+}
+
+.icons{
+  font-size: 24px;
+}
+
+i{
+  color: yellow;
+}
+
+.custom-alert {
+  padding: 5px 10px;
+  display: none;
+  
+}
+
+@media only screen and (max-width: 780px) {
+  .carousel{
+    display: none;
+  }
+  *{
+    font-size: 15px;
+  }
+  
+}
+
+
+

@@ -1,0 +1,331 @@
+<!doctype html>
+<?php include('patient-index.php');?>
+<html lang="en" dir="ltr">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/all.min.css">
+
+    <link rel="stylesheet" href="css/fontawesome.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+    
+    <title>Egypt Healthcare</title>
+  </head>
+  <body class="container-fluid">
+    <div class="container ">
+      <nav class="  navbar  navbar-expand-lg navbar-right navbar-dark bg-dark bg-body-tertiary mb-2" data-bs-theme="dark">
+                        
+        <a class="navbar-brand " href="#"><img class=" circle-img" src="images/logo2.png" width="40" height="40"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+          
+              <div class="   collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav  navbar-right me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="patient-index.html">Home</a>
+                  </li>
+                  
+                  
+                  <li class="nav-item">
+                    <a class="nav-link" href="doctors.html">Doctors</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="hospitals .html">Hospitals</a>
+                  </li>
+                  
+                  <li class="nav-item">
+                    <a class="nav-link" href="patient-details.html">Details</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="your-reports.html">Your Reports</a>
+                  </li>
+
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      My Account
+                      </a>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                      <li><button class="dropdown-item account"> Account</button></li>
+                      <li><button class="dropdown-item contact"> Contacts</button></li>
+
+                      <li><button class="dropdown-item change-pass"> Change Password</button></li>
+                      <li><button class="dropdown-item l-out"> log-out</button></li>
+
+
+                    </ul>
+                  </li>
+                  
+
+                  
+                  
+                  
+                </ul>
+                    <form class="d-flex " role="search" method="get" style="position: absolute; right: 10px;">
+                      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                      <button class="btn btn-outline-primary me-2" type="submit">Search</button>
+                    </form>
+              </div>
+            </nav>  
+      </div>
+
+      
+      <div class="container mt-3 col-md-12 col-xs-12" > 
+        <div class="row col-md-12 col-xs-12" >
+          
+             <div class=" col-md-3 container" > 
+              <div class=" row " > 
+                  
+                <div class="">
+                  <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" data-bs-interval="25000">
+                    <div class="carousel-inner">
+                      <div class="carousel-item active">
+                        <img src="images/1.png" class="d-block w-100" alt="...">
+                      </div>
+                      <div class="carousel-item">
+                        <img src="images/3.png" class="d-block w-100" alt="...">
+                      </div>
+                      <div class="carousel-item">
+                        <img src="images/5.png" class="d-block w-100" alt="...">
+                      </div>
+                    </div>
+                  </div>
+                  <div id="carouselExampleControls" class="carousel slide mb-2 mt-2" data-bs-ride="carousel" data-bs-interval="5000">
+                    <div class="carousel-inner">
+                      <div class="carousel-item active">
+                        <img src="images/2.png" class="d-block w-100" alt="...">
+                      </div>
+                      <div class="carousel-item">
+                        <img src="images/8.png" class="d-block w-100" alt="...">
+                      </div>
+                      <div class="carousel-item">
+                        <img src="images/7.png" class="d-block w-100" alt="...">
+                      </div>
+                    </div>
+                  </div>
+                  <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" data-bs-interval="15000">
+                    <div class="carousel-inner">
+                      <div class="carousel-item active">
+                        <img src="images/4.png" class="d-block w-100" alt="...">
+                      </div>
+                      <div class="carousel-item">
+                        <img src="images/6.avif" class="d-block w-100" alt="...">
+                      </div>
+                      <div class="carousel-item">
+                        <img src="images/9.png" class="d-block w-100" alt="...">
+                      </div>
+                    </div>
+                  </div>
+                </div>      
+                </div> 
+              </div> 
+                <div class="container col-md-9 col-sm-12 index-post-container col-xs-12 ">  
+                          <div class="row ">
+
+                            
+
+                        
+                            
+                            <?php
+                            include("connect.php");
+                            
+                            // Step 2: Retrieve poll data from the database
+                            $sql = "SELECT * FROM poll";
+                            $stmt = $db->query($sql);
+                            
+                            // Step 3: Process the retrieved data
+                            $pollData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                            
+                            // Step 4: Generate HTML output
+                            ?>
+                            
+                            <div class="container polllll mb-1 col-md-12">
+                              <?php foreach ($pollData as $poll) { ?>
+                                  <div class="row m-auto">
+                                      <h3 class="m-auto col-12 text-center">Poll</h3>
+                                      <div class="poll-caption col-12 mb-2 text-center">
+                                          <?php echo $poll['polltext']; ?>
+                                      </div>
+                            
+                                      <form action="" class="m-auto col-md-12 polllll-form">
+                                          <div class="poll-value mb-2">
+                                              <input type="radio" name="poll" value="option1">
+                                              <label class="label-form"><?php echo $poll['option1']; ?></label>
+                                          </div>
+                            
+                                          <div class="poll-value mb-2">
+                                              <input type="radio" name="poll" value="option2">
+                                              <label class="label-form"><?php echo $poll['option2']; ?></label>
+                                          </div>
+                                      </form>
+                                  </div>
+                              <?php } ?>
+                            </div>
+                            
+                                                            <div class=" col-md-12 text-post p-3 mb-1">
+                                                              <div class="container  ">
+                                                                <div class="row ">
+                                                                </div>
+                                                                <div class=" col-12" >
+                                                                  <!-- video image life here -->
+                                                                  <div  class="txt-post" >
+                                                                    <span>
+                                                                      <?php
+                                                                      include("connect.php");
+                                                                      $req = $db->query('SELECT * FROM posts');
+                                                                      $req->execute();
+                            
+                                                                      // While show all posts
+                                                                      while($row = $req->fetch(PDO::FETCH_ASSOC)){
+                                                                             echo "<p>{$row["text"]}</p>";
+                                                                             echo "<BR></BR>";
+                                                                              }
+                                                                      ?>
+                            
+                                                                    </span> 
+                            
+                                                                  </div>
+                                                                </div>
+                                                                <span class="col-12">14:45 AM 21/5/2023</span>
+                              
+                                                              </div>
+                                                            </div>
+                            
+                                                            <!-- Your HTML content before displaying the media -->
+                            
+                            <!-- PHP code to retrieve and display the media -->
+                            <?php
+                            
+                            // Perform a query to retrieve the data from the database
+                            $query = "SELECT * FROM media"; // Replace "media" with the actual table name
+                            $result = $db->query($query);
+                            
+                            // Check if the query was successful
+                            if ($result) {
+                                // Fetch data from the result set
+                                $rows = $result->fetchAll(PDO::FETCH_ASSOC);
+                            
+                                // Loop through the rows and display the media
+                                foreach ($rows as $row) {
+                                    $videoSrc = './uploads/'.$row['vedio']; 
+                                    $imageSrc = './uploads/'.$row['image']; 
+                                    $caption = $row['textt'];
+                            
+                                    // Output the HTML structure with the retrieved data
+                                    echo '
+                                    <div class="col-md-12 video-image-life mb-1">
+                                      <div class="container">
+                                        <div class="row">
+                                        </div>
+                                        <div class="post-caption col-12 p-3">
+                                          ' . $caption . '
+                                        </div>
+                                        <div class="col-12">
+                                          <!-- video image life here -->
+                                          <video src="'. $videoSrc.'" class="video" controls autoplay></video>
+                                        </div>
+                                        <span class="col-9"></span>
+                                      </div>
+                                    </div>
+                            
+                                    <div class="col-md-12 video-image-life mb-1">
+                                      <div class="container">
+                                        <div class="row">
+                                        </div>
+                                        <div class="post-caption col-12 p-3">
+                                          ' . $caption . '
+                                        </div>
+                                        <div class="col-12">
+                                          <!-- video image life here -->
+                                          <img src="'.$imageSrc.'" class="post-img" controls autoplay></img>
+                                        </div>
+                                        <span class="col-9"></span>
+                                      </div>
+                                    </div>
+                                    ';
+                                }
+                            } else {
+                                // Handle the case where the query was unsuccessful
+                                $errorInfo = $db->errorInfo();
+                                echo 'Error in executing the query: ' . $errorInfo[2];
+                            }
+                            ?>
+                            
+                       
+                                  
+
+<footer class="col-12 p-1">
+  <div class=" text-center col-md-12 d-flex justify-content-center mt-2 mb-2">
+    <i class="fa-brands fa-facebook col-md-2 "></i>
+    <i class="fa-brands fa-youtube col-md-2"></i>
+    <i class="fa-brands fa-instagram col-md-2"></i>
+    <i class="fa-brands fa-twitter col-md-2"></i>
+  </div>
+  <div class="footer text-center col-md-12">&trade;2023 All copy rights reserved to Egypt Healthcare</div>
+  </footer>
+        
+   
+
+    
+
+                <script src="js/jquery-3.6.4.min.js.js"></script>
+                <script src="js/bootstrap.bundle.min.js"></script>
+                <script src="js/all.min.js"></script>
+                <script src="js/script.js"></script>
+                <script src="js/bootstrap.min.js"></script>
+
+                <script src="js/posts.js"></script>
+
+
+                <script >
+
+                
+                  let contact = document.querySelector(".contact");
+                  contact.onclick = function () {
+                    window.open("patient-contacts.html", "_self",);
+                      
+              
+                      
+                  };
+              
+              
+              
+                  let acc = document.querySelector(".account");
+                   acc.onclick = function () {
+                       window.open("patient-details.html", "_self",);
+               
+                       
+                   };
+               
+               
+                   let changepass = document.querySelector(".change-pass");
+                   changepass.onclick = function () {
+                       window.open("forget-password copy.html", "_self",);
+               
+                       
+                   };
+               
+               
+                   let logout = document.querySelector(".l-out");
+                   logout.onclick = function () {
+                       window.open("logout.php", "_self",);
+               
+                       
+                   };
+                   
+                  
+              
+                  $("ul li a").on("click", function() {
+                      $("a").removeClass("active");
+                      $(this).addClass("active");
+                    });       
+                    document.getElementById("video-image-textarea").style.cssText="width:100%; outline:none; border:none; background-color:transparent";
+                    document.getElementById("poll-textarea").style.cssText="width:100%; outline:none; border:none; background-color:transparent";
+                    document.getElementById("post-textarea").style.cssText="width:100%; outline:none; border:none; background-color:transparent";
+                              </script>
+  </body>
+</html>

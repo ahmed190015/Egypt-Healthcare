@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor details</title>
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/fontawesome.css">
+  <link rel="stylesheet" href="css/all.min.css">
+
+  <link rel="stylesheet" href="css/bootstrap-select.min.css">
+
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body class="container-fluid ">
+  <?php include("patient-details.php");?>
+
+  <div class="container">
+    <nav class="  navbar  navbar-expand-lg navbar-right navbar-dark bg-dark bg-body-tertiary mb-2" data-bs-theme="dark">
+
+      <a class="navbar-brand " href="#"><img class=" circle-img" src="images/logo2.png" width="40" height="40"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="   collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav  navbar-right me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="patient-index.html">Home</a>
+          </li>
+
+
+          <li class="nav-item">
+            <a class="nav-link" href="doctors.html">Doctors</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="hospitals .html">Hospitals</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="patient-details.html">Details</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="your-reports.html">Your Reports</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              My Account
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark">
+              <li><button class="dropdown-item account"> Account</button></li>
+              <li><button class="dropdown-item contact"> Contacts</button></li>
+
+              <li><button class="dropdown-item change-pass"> Change Password</button></li>
+              <li><button class="dropdown-item l-out"> log-out</button></li>
+            </ul>
+          </li>
+        </ul>
+        <form class="d-flex " role="search" method="get" style="position: absolute; right: 10px;">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-primary me-2" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
+
+    <div class="container py-5 h-100">
+      <div class="row ">
+        <div class="container col-md-4">
+          <div class="row col-md-12 d-flex justify-content-start  ">
+            <div class="hospital-details-side">
+              <img class=" col-md-12 mb-3 " style="width: 120px;
+                               height: 120px;
+                               border-radius: 50%;
+                               background-color: aqua;
+                       " src="./uploads/<?php echo $patimage;?>">
+              <div class="col-md-12 mb-3">
+                Name:
+                <?php echo $name;?>
+              </div>
+
+              <div class=" col-md-12 mb-3">
+                Phone:
+                <?php echo $phone;?>
+              </div>
+
+              <div class=" col-md-12 mb-3">
+                Email:<?php echo $email; ?>
+              </div>
+
+              <div class=" col-md-12 mb-3">
+                Gender:<?php echo $gender;?>
+              </div>
+
+              <div class=" col-md-12 mb-3">
+                National Id:<?php echo $national_id;?>
+              </div>
+              <div class=" col-md-12 mb-3">
+                Blood type:<?php echo $bloodType;?>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="container col-md-8 ">
+          <div class="row d-flex ">
+            <div class="card text-center col-lg-12 ">
+              <div class="card-header ">
+                <ul class="nav nav-tabs card-header-tabs ">
+                  <li class="nav-item">
+                    <a class="nav-link" id="appoint" href="#appoint">Appointments</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="last-appoint" href="#last-appoint">last Appointments </a>
+                  </li>
+
+                </ul>
+              </div>
+            </div>
+            <?php
+            // Connect to the database
+            include("connect.php");
+            
+            // Retrieve the appointment data from the database
+            $sql = "SELECT * FROM appointment WHERE patient_id = :patient_id";
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':patient_id', $_SESSION['id']);
+            $stmt->execute();
+            $appointments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            if (empty($appointments)) {
+                // If there are no appointments, display a message
+                echo '<div class="col-lg-12 no-appointments text-center mt-4">';
+                echo '<h1 class="card-body col-md-8 m-auto">There are no appointments. We hope you stay healthy at all times.</h1>';
+                echo '</div>';
+            } else {
+                // If there are appointments, display them
+                foreach ($appointments as $appointment) {
+                    $appointment_date = $appointment['date'];
+                    $appointment_time = $appointment['time'];
+                    $doctor_id = $appointment['doctor_id'];
+            
+                    // Retrieve doctor data based on the doctor ID
+                    $sql = "SELECT * FROM doctor WHERE doctor_id = :doctor_id";
+                    $stmt = $db->prepare($sql);
+                    $stmt->bindParam(':doctor_id', $doctor_id);
+                    $stmt->execute();
+                    $doctor = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+                    if ($doctor) {
+                        $docname = $doctor['name'];
+                        $docphone = $doctor['phone'];
+                        $docspeciality = $doctor['specialize'];
+                        $doclocation = $doctor['location'];
+                        $image= $doctor['image'];
+            
+                        echo '<div class="card-body col-md-12 appointments p-5" style="background-color: #eee;">';
+                        echo '<h3 class="card-title text-center mb-3">Appointments</h3>';
+                        echo '<div class="appoint">';
+                        echo '<span class="d-flex justify-content-start">date: ' . $appointment_date . '</span>';
+                        echo '<span class="d-flex justify-content-start">time: ' . $appointment_time . '</span>';
+                        echo '<div class="container col-md-12 m-auto">';
+                        echo '<div class="row col-md-7 d-flex justify-content-center m-auto">';
+                        echo '<div class="col-md-4 mb-4" style="width: 150px; height: 150px; border-radius: 50%; background-color: aqua;">';
+                          echo '<img src="uploads/' . $image . '" alt="Doctor Image" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">';
+                        echo '</div>';
+                        echo '</div>';
+                        echo '<div class="container col-md-12 text-center">';
+                        echo '<div class="row">';
+                        echo '<div>Dr: ' . $docname . '</div>';
+                        echo '<div class="col-md-12">Phone: ' . $docphone . '</div>';
+                        echo '<div class="col-md-12">Speciality: ' . $docspeciality . '</div>';
+                        echo '<div>Location: ' . $doclocation . '</div>';
+                        echo '<div>';
+                        echo '<button class="btn btn-lg btn-primary">Cancel Appointment</button>';
+                        echo '</div>';
+                        echo '</div>';
+                        echo '</div>';
+                        echo '</div>';
+                        echo '</div>';
+                        echo '</div>';
+                    }
+                }
+            }
+            
+            // Retrieve the last appointment data from the database
+            $sql = "SELECT * FROM appointment WHERE patient_id = :patient_id";
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':patient_id', $_SESSION['id']);
+            $stmt->execute();
+            $lastAppointment = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            if ($lastAppointment) {
+                // If there is a last appointment, display it
+                $appointment_date = $lastAppointment['date'];
+                $appointment_time = $lastAppointment['time'];
+                $doctor_id = $lastAppointment['doctor_id'];
+            
+                // Retrieve doctor data based on the doctor ID
+                $sql = "SELECT * FROM doctor WHERE doctor_id = :doctor_id";
+                $stmt = $db->prepare($sql);
+                $stmt->bindParam(':doctor_id', $doctor_id);
+                $stmt->execute();
+                $doctor = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+                if ($doctor) {
+                    $docname = $doctor['name'];
+                    $docphone = $doctor['phone'];
+                    $docspeciality = $doctor['specialize'];
+                    $doclocation = $doctor['location'];
+            
+                    echo '<div class="card-body col-md-12 last-appointments p-5" style="background-color: #eee;">';
+                    echo '<h3 class="card-title text-center mb-3">Last Appointments</h3>';
+                    echo '<div class="last-appoint">';
+                    echo '<span class="d-flex justify-content-start">date: ' . $appointment_date . '</span>';
+                    echo '<span class="d-flex justify-content-start">time: ' . $appointment_time . '</span>';
+                    echo '<div class="container col-md-12 m-auto">';
+                    echo '<div class="row col-md-7 d-flex justify-content-center m-auto">';
+                    echo '<div class="col-md-4 mb-4" style="width: 150px; height: 150px; border-radius: 50%; background-color: aqua;"></div>';
+                    echo '</div>';
+                    echo '<div class="container col-md-12 text-center">';
+                    echo '<div class="row">';
+                    echo '<div>Dr: ' . $docname . '</div>';
+                    echo '<div class="col-md-12">Phone: ' . $docphone . '</div>';
+                    echo '<div class="">Speciality: ' . $docspeciality . '</div>';
+                    echo '<div>Location: ' . $doclocation . '</div>';
+                    echo '<div>';
+                    echo '<button class="btn btn-lg btn-primary" id="get-appoint">Get Appointment</button>';
+                    echo '</div>';
+                    echo '</div>';
+                    echo '</div>';
+                    echo '</div>';
+                    echo '</div>';
+                    echo '</div>';
+                }
+            }
+            ?>
+            
+            <footer class="col-12 p-1 " style="margin-top: 110px;">
+              <div class=" text-center col-md-12 d-flex justify-content-center foot mt-2 mb-2">
+                <i class="fa-brands fa-facebook col-md-1 "></i>
+                <i class="fa-brands fa-youtube col-md-1"></i>
+                <i class="fa-brands fa-instagram col-md-1"></i>
+                <i class="fa-brands fa-twitter col-md-1"></i>
+              </div>
+              <div class="footer text-center col-md-12">&trade;2023 All copy rights reserved to Egypt Healthcare</div>
+            </footer>
+
+            <script src="js/jquery-3.6.4.min.js.js"></script>
+            <script src="js/bootstrap.bundle.min.js"></script>
+            <script src="js/all.min.js"></script>
+            <script src="js/bootstrap.min.js"></script>
+
+
+            <script>
+              document.querySelector(".appointments").style.display = "none";
+              document.querySelector(".last-appointments").style.display = "none";
+              document.querySelector(".no-appointments").style.display = "none";
+
+
+              let app = document.querySelector("#appoint");
+              app.onclick = function () {
+                document.querySelector(".appointments").style.display = "block";
+                document.querySelector(".last-appointments").style.display = "none";
+
+              };
+
+              let lastapp = document.querySelector("#last-appoint");
+              lastapp.onclick = function () {
+                document.querySelector(".last-appointments").style.display = "block";
+                document.querySelector(".appointments").style.display = "none";
+
+
+              };
+
+              let getapp = document.querySelector("#get-appoint");
+              getapp.onclick = function () {
+                window.open("Appointments.html", "_self",);
+
+
+              };
+
+              $("ul li a").on("click", function () {
+                $("a").removeClass("active");
+                $(this).addClass("active");
+              });
+
+              let contact = document.querySelector(".contact");
+              contact.onclick = function () {
+                window.open("patient-contacts.html", "_self",);
+              };
+              let acc = document.querySelector(".account");
+              acc.onclick = function () {
+                window.open("patient-details.html", "_self",);
+              };
+              let changepass = document.querySelector(".change-pass");
+              changepass.onclick = function () {
+                window.open("forget-password copy.html", "_self",);
+              };
+              let logout = document.querySelector(".l-out");
+              logout.onclick = function () {
+                window.open("logout.php", "_self",);
+              };
+            </script>
+</body>
+
+</html>

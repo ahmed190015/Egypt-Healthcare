@@ -1,0 +1,201 @@
+<!doctype html>
+<?php
+session_start();
+
+if (!isset($_SESSION['id'])) {
+    header("Location: sign-in-copy.html");
+}
+?>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+
+
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/fontawesome.css"> 
+    <link rel="stylesheet" href="css/bootstrap.min.css.map">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+
+
+
+
+    <title>Requests</title>
+
+            </head>
+
+      <body class="container-fluid">
+        <div class="container ">
+          <nav class="  navbar  navbar-expand-lg navbar-right navbar-dark bg-dark bg-body-tertiary  mb-2" data-bs-theme="dark">
+                  
+            <a class="navbar-brand " href="#"><img class=" circle-img" src="images/logo2.png" width="40" height="40"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+                    
+                        <div class="   collapse navbar-collapse" id="navbarSupportedContent">
+                          <ul class="navbar-nav  navbar-right me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                              <a class="nav-link active" aria-current="page" href="doc-index.html">Home</a>
+                            </li>
+                            
+                            <li class="nav-item">
+                              <a class="nav-link" href="doc-Face-detection.html">Face detection</a>
+                            </li>
+                            
+                            <li class="nav-item">
+                              <a class="nav-link" href="doctor-details.html">Details</a>
+                            </li>
+          
+                            <li class="nav-item">
+                              <a class="nav-link" href="requests.html">Requests</a>
+                            </li>
+          
+                            <li class="nav-item dropdown">
+                              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                My Account
+                                </a>
+                              <ul class="dropdown-menu dropdown-menu-dark">
+                                <li><button class="dropdown-item account"> Account</button></li>
+                                <li><button class="dropdown-item contact"> Contacts</button></li>
+          
+                                <li><button class="dropdown-item change-pass"> Change Password</button></li>
+                                <li><button class="dropdown-item l-out"> log-out</button></li>
+          
+          
+                              </ul>
+                            </li>
+                            
+                            
+                          </ul>
+                              <form class="d-flex " role="search" method="get" style="position: absolute; right: 10px;">
+                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-primary me-2" type="submit">Search</button>
+                              </form>
+                        </div>
+                      </nav>
+      
+                      <div class="container py-5 h-100">
+                        <div class="row ">
+                          <div class="col-md-12 text-center  mb-5">
+                            <h1 class="m-auto col-md-12">Requests</h1>
+                          </div>
+                          <div class="requests col-md-12 d-flex justify-content-center">
+                            <div class="container col-md-12">
+                              <div class="row ">
+                                <?php
+ 
+                                include('connect.php');
+                                $sessionId = $_SESSION['id'];
+                      
+                                // Fetch requests based on the session ID from your data source
+                                // Modify this code according to your database structure and query logic
+                                // Replace the placeholders with the actual column names and table name
+                                $sql = "SELECT * FROM appointment WHERE doctor_id = :session_id";
+                                $stmt = $db->prepare($sql);
+                                $stmt->bindParam(':session_id', $sessionId, PDO::PARAM_INT);
+                                $stmt->execute();
+                                $requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                      
+                                // Check if there are any requests
+                                if (count($requests) > 0) {
+                                  foreach ($requests as $request) {
+                                    $name = $request['name'];
+                                    $date = $request['date'];
+                                    $time = $request['time'];
+                                    ?>
+                                    <div class="request container col-md-12">
+                                      <div class="row col-12">
+                                        <div class="request-child col-md-3 col-sm-4 m-3 pt-2 col-xs-6">
+                                          <img class="mb-3 mt-2 patient-img m-auto" style="width: 120px; height: 120px; border-radius: 50%; background-color: aqua;" src="">
+                                          <div>Name: <?php echo $name; ?></div>
+                                          <span class="d-flex justify-content-start">Date: <?php echo $date; ?></span>
+                                          <span class="d-flex justify-content-start">Time: <?php echo $time; ?></span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                <?php
+                                  }
+                                } else {
+                                  echo '<div class="no-requests m-auto text-center">
+                                          <h2 class="m-auto col-md-8 col-xs-12">There are no requests. We will inform you when you receive requests.</h2>
+                                        </div>';
+                                }
+                                ?>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+
+    
+
+
+         <footer class="col-12 text-center" style="margin-top: 110px;">
+          <div class=" text-center col-md-12">
+          <i class="fa-brands fa-facebook col-md-1 "></i>
+          <i class="fa-brands fa-youtube col-md-1"></i>
+          <i class="fa-brands fa-instagram col-md-1"></i>
+          <i class="fa-brands fa-twitter col-md-1"></i>
+        </div>
+        <div class="footer text-center col-md-12">&trade;2023 All copy rights reserved to Egypt Healthcare</div>
+      </footer>
+
+                <script src="js/jquery-3.6.4.min.js.js"></script>
+                <script src="js/bootstrap.bundle.min.js"></script>
+                <script src="js/all.min.js"></script>
+                <script src="js/bootstrap.min.js"></script>
+                <script >
+
+                
+                      let contact = document.querySelector(".contact");
+                      contact.onclick = function () {
+                        window.open("doctor-contacts.html", "_self",);
+                          
+                  
+                          
+                      };
+                  
+                  
+                  
+                      let acc = document.querySelector(".account");
+                       acc.onclick = function () {
+                           window.open("doctor-details.html", "_self",);
+                   
+                           
+                       };
+                   
+                   
+                       let changepass = document.querySelector(".change-pass");
+                       changepass.onclick = function () {
+                           window.open("forget-password copy.html", "_self",);
+                   
+                           
+                       };
+                   
+                   
+                       let logout = document.querySelector(".l-out");
+                       logout.onclick = function () {
+                           window.open("logout.php", "_self",);
+                   
+                           
+                       };
+                       
+                      
+                  
+                      $("ul li a").on("click", function() {
+                          $("a").removeClass("active");
+                          $(this).addClass("active");
+                        });                     
+                                  </script>
+  </body>
+</html>
+
+
+
+
+

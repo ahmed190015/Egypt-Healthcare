@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bootstrap v5.2 Design Login Forms</title>
+        <link rel="stylesheet" href="css/bootstrap.css">
+
+            <link rel="stylesheet" href="css/style.css">
+            
+
+    </head>
+
+    <body>
+      <div class="text-center  text-primary mt-4"><img src="images/logo2.png" width="50" height="50"></div>
+      <h1 class="text-center">Egypt Healthcare</h1>
+
+              <section class="vh-60 gradient-custom">
+                <div class="container py-5 h-100">
+                  <div class="row justify-content-center align-items-center h-100">
+                    <div class="col-12 col-lg-9 col-xl-7">
+                      <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                        <div class="card-body p-4 p-md-5">
+                          <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center" style="color:yellow;">Doctor Registration Form</h3>
+                          <form method="POST" action="doctor-sign-up.php">
+                            
+                            <div class="row">
+                              <div class="col-md-6 mb-4">
+              
+                                <div class="form-outline">
+                                  <label class="form-label" for="FullName">Full Name</label>
+                                  <input type="text" name="FullName" id="FullName"  class="form-control form-control-lg" />
+                                  <br>
+                                  <div class="alert alert-danger custom-alert">
+                                    Should contain only characters <br> not empty <br> Length at least 4 character
+                                  </div>
+                                </div>
+              
+                              </div>
+                              <div class="col-md-6 mb-4">
+              
+                                <div class="form-outline">
+                                  <label class="form-label" for="ID">National ID</label>
+                                  <input type="text" name="ID" id="ID"  class="form-control form-control-lg" />
+                                  <br><div class="alert alert-danger custom-alert"> 
+                                    ID is not empty <br>ID must be 14 numberss <br>ID must be start 20 or 30
+                                  </div>
+                                  
+                                </div>
+              
+                              </div>
+                              <div class="col-md-6 mb-4 pb-2">
+              
+                                <div class="form-outline">
+                                  <label class="form-label" for="emailAddress">Email</label>
+                                  <input type="email" name="emailAddress" id="emailAddress" class="form-control form-control-lg" />
+                                  <br>
+                                  <div class="alert alert-danger custom-alert">
+                                    Email not empty <br>
+                                    Email is (AAAA@AAAA.AAAA)   
+                                  </div>
+                                </div>
+              
+                              </div>
+                              <div class="col-md-6 mb-4 pb-2">
+              
+                                <div class="form-outline">
+                                  <label class="form-label" for="phoneNumber">Phone Number</label>
+                                  <input type="tel" name="phoneNumber" id="phoneNumber" class="form-control form-control-lg" />
+                                  <br>
+                                  <div class="alert alert-danger custom-alert">
+                                    Phone numbers are not empty <br>Phone numbers must be 11 numberss<br>Phone numbers are start (010, 011, 012, 015)
+                                  </div>
+                                </div>
+              
+                              </div>
+                            </div>
+              
+                            <div class="row">
+                              
+                              
+                            </div>
+              
+                            <div class="row">
+                              
+                             
+                              <div class="col-md-6 mb-4 d-flex align-items-center">
+              
+                                <div class="form-outline datepicker w-100">
+                                  <label for="password" class="form-label">   Password</label>
+                                  <input name="password" id="password" type="password" class="form-control form-control-lg" id="password" />
+                                  <br>
+                                  <div class="alert alert-danger custom-alert">
+                                    Password is not empty<br>Password at least 8 characters
+                                  </div>
+                                </div>
+              
+                              </div>
+                              <div class="col-md-6 mb-4 d-flex align-items-center">
+              
+                                <div class="form-outline datepicker w-100">
+                                  <label for="password" class="form-label">Confirm Password</label>
+                                  <input id="confirm_password" name="confirm_password" type="password" class="form-control form-control-lg" id="confirm-password" />
+                                  <br>
+                                  <div class="alert alert-danger custom-alert">
+                                    Password did not matched
+                                  </div>
+                                </div>
+              
+                              </div>
+                            </div>
+                            <div class="col-md-12 mb-3 select-gender " >
+
+                              <select name = "gender" id = "gender" class="form-select" aria-label="Default select example">
+                                <option selected disabled>Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="No more" disabled>No more</option>
+                              </select>
+                              <br>
+                              <div class="alert alert-danger custom-alert">
+                                Please; Select gender
+                              </div>
+                            </div>
+
+
+                            <div class="col-md-12 mb-3 d-flex align-items-center">
+              
+                              <div class="form-outline datepicker w-100 org d-none" >
+                                <label for="phone_doctor" class="form-label">Doctor's phone number in medical syndicate </label>
+                                <input type="tel" class="form-control form-control-lg" id="phone_doctor" />
+                              </div>
+            
+                            </div>
+
+
+                            <div class="mb-3 d-grid get-verifing-code ">
+                              <button type="submit" class="btn btn-primary" id="reset">
+                                Verify that you are a Doctor
+                               </button>
+                            </div>
+                            <div class="mb-3" id="enter-verifing-code">
+                              <label for="verfying" class="form-label" >Enter verfying code</label>
+                              <input type="text" id="verfying" class="form-control"  required="">
+                              <br>
+                              <div class="alert alert-danger custom-alert">
+                                Verfy code contain numbers only<br>Verfy code is not empty <br>Verfy code must be 6 numberss
+                              </div>
+                            </div>
+                            
+            
+                            <div class="mb-3 d-grid pass-reset">
+                              <button type="submit" class="btn btn-primary " id="Resend">
+                                Resend verfying code
+                              </button>
+                            </div>
+                            
+                              <div class="mt-4 pt-2 mb-3 d-grid pass-reset">
+                              <input class="btn btn-primary btn-lg" type="submit" value="Submit" />
+                                
+                            </div>
+
+                            <div class="mt-3">
+                              <p class="mb-0  text-center">I have an account? <a href="doctor-sign-in.html"  style="color:yellow;"
+                                      class=" fw-bold" >Sign
+                                      In</a></p>
+                          </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+                </div>
+                <footer class="col-12 text-center mt-5">
+                  <div class=" text-center col-md-12">
+                  <i class="fa-brands fa-facebook col-md-1 "></i>
+                  <i class="fa-brands fa-youtube col-md-1"></i>
+                  <i class="fa-brands fa-instagram col-md-1"></i>
+                  <i class="fa-brands fa-twitter col-md-1"></i>
+                </div>
+                <div class="footer text-center col-md-12">&trade;2023 All copy rights reserved to Egypt Healthcare</div>
+              </footer>
+                <script src="js/jquery-3.6.4.min.js.js"></script>
+                <script src="js/bootstrap.bundle.min.js"></script>
+                <script src="js/all.min.js"></script>
+                <script src="js/all.min.js"></script>
+                <script src="js/signup.js"></script>
+                <script>
+                  $(function() {
+
+                      // UserName Validation
+                      $('#FullName').blur(function() {
+
+                          var pattern = /^[a-zA-Z]*$/;
+                          var username = $("#FullName").val();
+                          if(pattern.test(username) && username !== '' && username.length >=4 ) {
+                              $(this).parent().find('.custom-alert').fadeOut(100);
+                          } else {
+                              $(this).parent().find('.custom-alert').fadeIn(100);
+                          }
+
+                      });
+
+                      // National ID Validation
+                      $('#ID').blur(function() {
+                          var nationalid_length = $("#ID").val().length;
+                          var pattern1 = /^2[0-9]{13}$/;
+                          var pattern2 = /^3[0-9]{13}$/;
+                          var national = $("#ID").val();
+                      
+                        if(nationalid_length === 14 && (pattern1.test(national) || pattern2.test(national)) && national !=='') {
+                              $(this).parent().find('.custom-alert').fadeOut(100);
+                          } else {
+                              $(this).parent().find('.custom-alert').fadeIn(100);
+
+                          }
+                      });
+
+                      // Email Validation
+                      $('#emailAddress').blur(function() {
+                          var pattern = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                          var email = $("#emailAddress").val();
+                          if(pattern.test(email) && email !== '' ) {
+                              $(this).parent().find('.custom-alert').fadeOut(100);
+                          } else {
+                              $(this).parent().find('.custom-alert').fadeIn(100);
+                          }
+                      });
+
+                       // Phone Validation
+                      $('#phoneNumber').blur(function() {
+                          
+                          var phone_length = $("#phoneNumber").val().length;
+                          var pattern = /^01[0125][0-9]{8}$/gm;
+                          var phone = $("#phoneNumber").val();
+                          if(phone_length === 11 && pattern.test(phone) && phone !== '') {
+                            $(this).parent().find('.custom-alert').fadeOut(100);
+                          } else {
+                            $(this).parent().find('.custom-alert').fadeIn(100);
+                          }
+                      });
+
+                      // Password Validation
+                      $('#password').blur(function() { 
+
+                          var password_length = $("#password").val().length;
+                          if(password_length < 8 ) {
+                              $(this).parent().find('.custom-alert').fadeIn(100);
+                          } else {
+                              $(this).parent().find('.custom-alert').fadeOut(100);
+                          }
+                      });
+
+                          // Confirm-Password Validation
+                      $('#confirm_password').blur(function() { 
+
+                          var password= $("#password").val();
+                          var ch_pass = $("#confirm_password").val();
+                          if(password !== ch_pass) {
+                              $(this).parent().find('.custom-alert').fadeIn(100);
+                          } else {
+                            $(this).parent().find('.custom-alert').fadeOut(100);
+                          }
+                      });
+
+                      // Choose Gender Validation
+                      $('#gender').blur(function() {
+
+                          var genderType = $("#gender").val();
+                          if( genderType !== '' ) {
+                              $(this).parent().find('.custom-alert').fadeIn(100);
+                          } else {
+                              $(this).parent().find('.custom-alert').fadeOut(100);
+                          }
+
+                      });
+
+                       // Verfying Code Validation
+                      $('#verfying').blur(function() {
+                          
+                          var verfy_length = $("#verfying").val().length;
+                          var pattern = /[0-9]{6}$/gm;
+                          var verfy = $("#verfying").val();
+                          if(verfy_length === 6 && pattern.test(verfy) && phone !== '') {
+                            $(this).parent().find('.custom-alert').fadeOut(100);
+                          } else {
+                            $(this).parent().find('.custom-alert').fadeIn(100);
+                          }
+                      });
+
+                  });
+                </script>
+               
+                
+    </body>
+
+</html>
+
+

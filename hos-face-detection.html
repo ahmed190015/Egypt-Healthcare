@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<?php
+session_start();
+
+if (!isset($_SESSION['id'])) {
+    header("Location: sign-in-copy.html");
+    exit();
+}
+?>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Face detection</title>
+        
+            
+            <link rel="stylesheet" href="css/bootstrap.css">
+
+            <link rel="stylesheet" href="css/bootstrap.min.css">
+
+            <link rel="stylesheet" href="css/style.css">
+
+    </head>
+
+    <body>
+
+
+    <div class="container  ">
+       <div class="row ">
+        <nav class="  navbar  navbar-expand-lg navbar-right navbar-dark bg-dark bg-body-tertiary  mb-2" data-bs-theme="dark">
+                  
+          <a class="navbar-brand " href="#"><img class=" circle-img" src="images/logo2.png" width="40" height="40"></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+            
+                <div class="   collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav  navbar-right me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="hos-index.html">Home</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                      <a class="nav-link" href="hos-face-detection.html">Face detection</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                      <a class="nav-link" href="hospital-details.html">Details</a>
+                    </li>
+
+                  
+
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        My Account
+                        </a>
+                      <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><button class="dropdown-item account"> Account</button></li>
+                        <li><button class="dropdown-item contact"> Contacts</button></li>
+                        <li><button class="dropdown-item change-pass"> Change Password</button></li>
+                        <li><button class="dropdown-item l-out"> log-out</button></li>
+
+
+                      </ul>
+                    </li>
+                    
+                    
+                  </ul>
+                      <form class="d-flex " role="search" method="get" style="position: absolute; right: 10px;">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-primary me-2" type="submit">Search</button>
+                      </form>
+                </div>
+              </nav>
+
+              
+          <div class="d-flex justify-content-center fs-1 mb-5 mt-3 ">
+
+                <button><img src="images/linkedin-icon.png" width="100" height="100" ></button>            
+               </div>
+               <div class="container col-md-12  ">
+                <div class="row ">
+        <div class="container col-md-4  ">
+            <div class="row col-md-4 ">
+
+              <img class="report-img col-md-12 "
+              style="width: 100px;
+                     height: 100px;
+                     border-radius: 50%;
+                     background-color: aqua;
+             "  src="">
+               
+             <div class="rep-patient-name col-md-12 mb-3">
+               Name: 
+             </div>
+             <div class="rep-patient-age col-md-12 mb-3">
+               Age: 
+             </div>
+
+             <div class="rep-patient-gender col-md-12 mb-3">
+              Gender: 
+            </div>
+            
+             <div class="rep-patient-blood-type col-md-12 mb-3">
+               Blood type: 
+           </div>
+
+
+            
+           <div class="dropdown repo-drop">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Add report</button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item " id="des" href="#des">Diseases</a></li>
+              <li><a class="dropdown-item " id="vir"  href="#vir">Viruses</a></li>
+              <li><a class="dropdown-item " id="aller" href="#aller">Allergies</a></li>
+              <li><a class="dropdown-item " id="frac" href="#frac">Fractions</a></li>
+            </ul>
+          </div>  
+         </div>
+      </div>
+
+
+      <div class="card text-center col-lg-8">
+        <div class="card-header ">
+            <div class="card-header ">
+          <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item" id="dess">
+              <a class="nav-link active" aria-current="true" id="see-diseases" href="#see-diseases">Diseases</a></a>
+            </li>
+            <li class="nav-item" id="virrr">
+              <a class="nav-link" id="see-viruses" href="#see-viruses">Viruses</a>
+            </li>
+            <li class="nav-item" id="allerr">
+              <a class="nav-link" id="see-allergies" href="#see-allergies">Allergies</a>
+            </li>
+            <li class="nav-item" id="fracc">
+                <a class="nav-link" id="see-fractions" href="#see-fractions">Fractions</a>
+              </li>
+          </ul>
+        </div>
+       
+       
+        <div class="card-body col-lg-12 desss">
+          <h5 class="card-title">Diseases</h5>
+                <p class="card-text">See diseases</p>
+                <div class="Repo-attached-files ">
+                  Attached Files
+                </div>
+                <div class="card-footer report-date">
+                  2 days ago
+                </div>
+                <Button class="btn btn-primary"  id="de">Add diseases</Button>  
+        </div>
+
+        <div class="card-body col-lg-12 virrr ">
+            <h5 class="card-title">Viruses</h5>
+            
+                  <p class="card-text">See viruses
+                  </p>
+                  <div class="Repo-attached-files ">
+                    Attached Files
+                  </div>
+                  <div class="card-footer report-date">
+                    2 days ago
+                  </div>
+                  <Button class="btn btn-primary"  id="vi">Add viruses</Button>    
+                </div>
+
+          <div class="card-body col-lg-12 allerrr ">
+            <h5 class="card-title">Allergies</h5>
+                  <p class="card-text">See allergies
+                  </p>
+                  <div class="Repo-attached-files ">
+                    Attached Files
+                  </div>
+                  <div class="card-footer report-date">
+                    2 days ago
+                  </div>
+                  <Button class="btn btn-primary"  id="al">Add allergies</Button>
+          </div>
+
+          <div class="card-body col-lg-12 fraccc">
+            <h5 class="card-title">Fractions</h5>
+                  <p class="card-text">See fractions
+                  </p>
+                  <div class="Repo-attached-files ">
+                    Attached Files
+                  </div>
+                  <div class="card-footer report-date">
+                    2 days ago
+                  </div>
+                  <Button class="btn btn-primary"  id="fr">Add fractions</Button>
+          </div>
+
+
+          <form class="dess">
+            <div class="card-body col-lg-12 ">
+                <h5 class="card-title">Add diseases</h5>
+                    <textarea class="col-md-12" rows="12">
+
+                    </textarea>
+                    <Input type="file"></Input>
+                    <div class="card-footer report-date">
+                      2 days ago
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Save report"></input>
+              </div>
+
+            </form>
+            <form class="virr">
+              <div class="card-body col-lg-12 ">
+                <h5 class="card-title">Add viruses</h5>
+                    <textarea class="col-md-12" rows="12">
+
+                    </textarea>
+                    <Input type="file"></Input>
+                    <div class="card-footer report-date">
+                      2 days ago
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Save report"></input>
+              </div>
+            </form>
+
+            <form class="allerr">
+              <div class="card-body col-lg-12 ">
+                <h5 class="card-title">Add allergies</h5>
+                    <textarea class="col-md-12" rows="12">
+
+                    </textarea>
+                    <Input type="file"></Input>
+                    <div class="card-footer report-date">
+                      2 days ago
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Save report"></input>
+              </div>
+            </form>
+
+            <form class="fracc">
+              <div class="card-body col-lg-12 ">
+                <h5 class="card-title">Add fractions</h5>
+                    <textarea class="col-md-12" rows="12">
+
+                    </textarea>
+                    <Input type="file"></Input>
+                    <div class="card-footer report-date">
+                      2 days ago
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Save report"></input>
+              </div>
+            </form>
+
+        </div>
+
+      </div>
+      </div>
+
+    </div>
+</div>
+<footer class="col-12 p-1 " style="margin-top: 21px;">
+  <div class=" text-center col-md-12 d-flex justify-content-center mt-2 mb-2">
+    <i class="fa-brands fa-facebook col-md-1 "></i>
+    <i class="fa-brands fa-youtube col-md-1"></i>
+    <i class="fa-brands fa-instagram col-md-1"></i>
+    <i class="fa-brands fa-twitter col-md-1"></i>
+  </div>
+  <div class="footer text-center col-md-12">&trade;2023 All copy rights reserved to Egypt Healthcare</div>
+  </footer>
+
+
+<script src="js/jquery-3.6.4.min.js.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/all.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/your-reports.js"></script>
+<script >
+
+                
+  let contact = document.querySelector(".contact");
+  contact.onclick = function () {
+    window.open("hospital-contacts.html", "_self",);
+      
+
+      
+  };
+
+
+
+  let acc = document.querySelector(".account");
+   acc.onclick = function () {
+       window.open("hospital-details.html", "_self",);
+
+       
+   };
+
+
+   let changepass = document.querySelector(".change-pass");
+   changepass.onclick = function () {
+       window.open("forget-password copy.html", "_self",);
+
+       
+   };
+
+
+   let logout = document.querySelector(".l-out");
+   logout.onclick = function () {
+       window.open("logout.php", "_self",);
+
+       
+   };
+   
+  
+
+  $("ul li a").on("click", function() {
+      $("a").removeClass("active");
+      $(this).addClass("active");
+    });                     
+              </script>
+
+        
+</body>
+
+</html>

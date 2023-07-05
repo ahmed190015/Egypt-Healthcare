@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<?php
+session_start();
+if (isset($_SESSION['id'])) {
+	header('location:index.html');
+	exit();
+}?>
+<html>
+<head>
+	<title>Admin Login Page</title>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/
+	bootstrap/4.5.0/css/bootstrap.min.css">
+
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrTSNfxfbHuxg42LY6of8TaYyk50jnxRnM=" crossorigin="anonymous"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/fort-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+
+</head>
+<body style="background-image: url(images/hospital.png); background-repeat: no-repeat;
+			background-size: cover;">
+	<nav class="navbar navbar-expand-lg navbar-info bg-info">
+		<h5 class="text-white">Egypt Healthcare</h5>
+
+		<div class="mr-auto"></div>
+
+		<ul class="navbar-nav">
+			
+				<li class="nav-item">
+					<a href="../sign-in copy.html" class="nav-link text-white">
+						Home
+					</a>
+				</li>
+				<li class="nav-item">
+					<a href="adminLogin.html" class="nav-link text-white">
+						Admin
+					</a>
+				</li>
+				<li class="nav-item">
+					<a href="../doctor-sign-in.html" class="nav-link text-white">
+						Doctor
+					</a>
+				</li>
+				<li class="nav-item">
+					<a href="../patient-sign-in.html" class="nav-link text-white">
+						Patient
+					</a>
+				</li>
+				
+		</ul>
+		
+	</nav>
+	<div style="margin-top: 20px;"></div>
+	<div class="container">
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-md-3"></div>
+				<div class="col-md-6 jumbotron" >
+					<img src="img/admin.jpg" class="col-md-12">
+					<form method="POST" class="my-2" action="">
+						
+						<div class="form-group">
+							<label>Username</label>
+							<input type="text" name="uname" class="form-control" 
+							autocomplete="off" placeholder="Enter username">
+						</div>
+						<div class="form-group">
+							<label>Password</label>
+							<input type="Password" name="pass" class="form-control">
+						</div>
+
+						<input type="submit" name="login" class="btn btn-success" value="Login">
+					</form>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</body>
+<?php
+
+include("../connect.php");
+if (isset($_POST['login'])) {
+    // Get the entered username and password
+    $username = $_POST['uname'];
+    $password = $_POST['pass'];
+
+        // Prepare the query to fetch the user with the entered username and password
+        $stmt = $db->prepare("SELECT * FROM admin WHERE username = :username AND password = :password");
+        $stmt->bindParam(":username", $username);
+        $stmt->bindParam(":password", $password);
+        $stmt->execute();
+
+        // Check if a matching user was found
+        if ($stmt->rowCount() > 0) {
+            // Store the user's ID in the session
+			$result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            $_SESSION['id'] = $result['id'];
+
+            // Valid credentials, redirect to the admin dashboard
+            header('Location: index.html');
+            exit();
+        } else {
+            // Invalid credentials, display an error message
+            echo "Invalid username or password";
+        }
+    
+}
+?>
+</html>

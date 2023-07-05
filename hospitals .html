@@ -1,0 +1,234 @@
+<!doctype html>
+<?php
+if (isset($_SESSION['id'])) {
+  header("Location: patient-index.html");
+  exit();
+}
+else{
+  header("Locationsign-in-copy.html");
+}
+?>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    
+    <!-- Style -->
+    <link rel="stylesheet" href="css/fontawesome.css"> 
+
+    <link rel="stylesheet" href="css/style.css">
+
+
+
+
+    <title>Hospitals</title>
+
+            </head>
+
+            <body class="container-fluid">
+              <div class="container">
+                <nav class="  navbar  navbar-expand-lg navbar-right navbar-dark bg-dark bg-body-tertiary mb-2" data-bs-theme="dark">
+                        
+                  <a class="navbar-brand " href="#"><img class=" circle-img" src="images/logo2.png" width="40" height="40"></a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                    
+                        <div class="   collapse navbar-collapse" id="navbarSupportedContent">
+                          <ul class="navbar-nav  navbar-right me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                              <a class="nav-link active" aria-current="page" href="patient-index.html">Home</a>
+                            </li>
+                            
+                            
+                            <li class="nav-item">
+                              <a class="nav-link" href="doctors.html">Doctors</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="hospitals .html">Hospitals</a>
+                            </li>
+                            
+                            <li class="nav-item">
+                              <a class="nav-link" href="patient-details.html">Details</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="your-reports.html">Your Reports</a>
+                            </li>
+        
+                            <li class="nav-item dropdown">
+                              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                My Account
+                                </a>
+                              <ul class="dropdown-menu dropdown-menu-dark">
+                                <li><button class="dropdown-item account"> Account</button></li>
+                                <li><button class="dropdown-item contact"> Contacts</button></li>
+      
+                                <li><button class="dropdown-item change-pass"> Change Password</button></li>
+                                <li><button class="dropdown-item l-out"> log-out</button></li>
+        
+        
+                              </ul>
+                            </li>
+                            
+        
+                            
+                            
+                            
+                          </ul>
+                              <form class="d-flex " role="search" method="get" style="position: absolute; right: 10px;">
+                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-primary me-2" type="submit">Search</button>
+                              </form>
+                        </div>
+                      </nav>     
+
+                    <form name="search" id="search" class="d-flex mb-3 " role="search" method="get" action="" >
+                      <input name="search" id="search" class="form-control me-2" type="search" placeholder="Search According to your needs" aria-label="Search">
+                      <button class="btn btn-outline-primary me-2" type="submit">Search</button>
+                    </form>
+                    <?php
+                    include("connect.php");
+                    
+                    // Check if the search parameter is provided in the URL
+                    if (isset($_GET['search'])) {
+                        $search = $_GET['search'];
+                    
+                        // Prepare and execute the query
+                        $query = "SELECT *FROM hospital WHERE name LIKE :search OR medical_specialities LIKE :search";
+                    
+                        $stmt = $db->prepare($query);
+                        $stmt->bindValue(':search', '%' . $search . '%');
+                        $stmt->execute();
+                    
+                        // Check if there are any matching records
+                        if ($stmt->rowCount() > 0) {
+                            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                // Output the HTML with the retrieved data
+                                echo '<div class="container hospitals">
+                                        <div class="row">
+                                            <div class="hospital col-md-12 pt-2 pb-3" style="background-color: #eee;">
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="container col-md-4 pt-3 hospitals-img">
+                                                            <div class="row col-md-9">
+                                                                <img class="mb-3 pt-5 hospitals-img" style="width: 120px; height: 120px; border-radius: 50%; background-color: aqua;" src="./uploads/'.$row['image'].'">
+                                                            </div>
+                                                        </div>
+                                                        <div class="container col-md-8 mb-2">
+                                                            <div class="row">
+                                                                <div class="col-md-12 mt-2">Hospital: '.$row['name'].'</div>
+                                                                <div class="col-md-12">Phone: '.$row['phone'].'</div>
+                                                                <div class="col-md-8">Location URL: '.$row['location'].'</div>
+                                                                <div class="col-md-12">Location: '.$row['address'].'</div>
+                                                                <div class="col-md-12">Specialities: '.$row['medical_specialities'].'</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="container col-md-12 hos-see-more">
+                                                            <div class="row">
+                                                                <div class="col-md-4">Manager: '.$row['manager_full_name'].'</div>
+                                                                <div class="col-md-8">Working Days:</div>';
+                    
+                                // Retrieve and display the calendar data for the current hospital
+                                $hospitalId = $row['hospital_id'];
+                                $calendarQuery = "SELECT * FROM calendar WHERE hospital_id = :hospitalId";
+                                $calendarStmt = $db->prepare($calendarQuery);
+                                $calendarStmt->bindValue(':hospitalId', $hospitalId);
+                                $calendarStmt->execute();
+                    
+                                // Check if there are any calendar records for the current hospital
+                                if ($calendarStmt->rowCount() > 0) {
+                                    while ($calendarRow = $calendarStmt->fetch(PDO::FETCH_ASSOC)) {
+                                        // Output the calendar data
+                                        echo '<div class="col-md-4">Date: '.$calendarRow['date'].'</div>
+                                              <div class="col-md-4">Start Time: '.$calendarRow['start_time'].'</div>
+                                              <div class="col-md-4">End Time: '.$calendarRow['end_time'].'</div>';
+                                    }
+                                } else {
+                                    echo '<div class="col-md-12">No calendar data available for this hospital.</div>';
+                                }
+                    
+                                echo '</div>
+                                      </div>
+                                      <div class="col-md-12 text-center">
+                                          <button class="btn btn-lg btn-primary hos-see-more-button">Show more</button>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>';
+                            }
+                        } else {
+                            echo 'No results found.';
+                        }
+                    }
+                    
+                    // Close the database connection
+                    $db = null;
+                    ?>
+                    
+                    
+             
+              <footer class="col-12 p-1 " style="margin-top: 220px;">
+                <div class=" text-center col-md-12 d-flex justify-content-center foot mt-2 mb-2">
+                  <i class="fa-brands fa-facebook col-md-1 "></i>
+    <i class="fa-brands fa-youtube col-md-1"></i>
+    <i class="fa-brands fa-instagram col-md-1"></i>
+    <i class="fa-brands fa-twitter col-md-1"></i>
+                </div>
+                <div class="footer text-center col-md-12">&trade;2023 All copy rights reserved to Egypt Healthcare</div>
+                </footer>
+              
+              <script src="js/jquery-3.6.4.min.js.js"></script>
+              <script src="js/bootstrap.bundle.min.js"></script>
+              <script src="js/all.min.js"></script>
+              <script src="js/bootstrap.min.js"></script>
+              <script src="js/account.js"></script>
+
+
+
+              <script >
+                          document.querySelector(".hos-see-more").style.display="none";
+                  let hosseemoreee = document.querySelector(".hos-see-more-button");
+                    hosseemoreee.onclick = function () {
+                var hosseemore = document.querySelector(".hos-see-more");
+                var hosseemorebutton = document.querySelector(".hos-see-more-button");
+
+                if (hosseemore.style.display === "none") {
+                  hosseemorebutton.innerHTML = "Show less";
+                  hosseemore.style.display = "block";
+                } else {
+                  hosseemore.style.display = "none";
+                  hosseemorebutton.innerHTML = "Show more";
+                };
+              };
+
+
+
+                   
+                    
+                  $("ul li a").on("click", function() {
+                      $("a").removeClass("active");
+                      $(this).addClass("active");
+                    });
+
+    
+
+
+</script>
+                      
+                
+    </body>
+    
+
+</html>
+
+

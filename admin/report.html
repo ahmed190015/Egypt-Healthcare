@@ -1,0 +1,275 @@
+<?php
+session_start();
+if (!isset($_SESSION['id'])) {
+    header('Location: adminLogin.html');
+}
+
+
+
+// Include the database connection file
+include("../connect.php");
+
+// Function to get the total count of administrators
+function getTotalAdministrators($db) {
+    $stmt = $db->prepare("SELECT COUNT(*) as total FROM admin");
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result['total'];
+}
+
+// Function to get the total count of hospitals
+function getTotalHospitals($db) {
+    $stmt = $db->prepare("SELECT COUNT(*) as total FROM hospital");
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result['total'];
+}
+
+// Function to get the total count of patients
+function getTotalPatients($db) {
+    $stmt = $db->prepare("SELECT COUNT(*) as total FROM patient");
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result['total'];
+}
+
+// Function to get the total count of doctors
+function getTotalDoctors($db) {
+    $stmt = $db->prepare("SELECT COUNT(*) as total FROM doctor");
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result['total'];
+}
+
+// Function to get the total count of contacts
+function getTotalContacts($db) {
+    $stmt = $db->prepare("SELECT COUNT(*) as total FROM contact");
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result['total'];
+}
+
+// Function to get the total count of appointments
+function getTotalAppointments($db) {
+    $stmt = $db->prepare("SELECT COUNT(*) as total FROM appointment");
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result['total'];
+}
+function getTotalPosts($db) {
+    $stmt = $db->prepare("SELECT COUNT(*) as total FROM posts");
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result['total'];
+}
+function getTotalpolls($db) {
+    $stmt = $db->prepare("SELECT COUNT(*) as total FROM poll");
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result['total'];
+}
+function getTotalmedia($db) {
+    $stmt = $db->prepare("SELECT COUNT(*) as total FROM media");
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result['total'];
+}
+function getTotalvirus($db) {
+    $stmt = $db->prepare("SELECT COUNT(*) as total FROM viruses");
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result['total'];
+}
+function getTotaldesiese($db) {
+    $stmt = $db->prepare("SELECT COUNT(*) as total FROM diseases");
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result['total'];
+}
+function getTotalallergies($db) {
+    $stmt = $db->prepare("SELECT COUNT(*) as total FROM allergies");
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result['total'];
+}
+function getTotalfractions($db) {
+    $stmt = $db->prepare("SELECT COUNT(*) as total FROM fractions");
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result['total'];
+}
+// Get the required data
+$totalAdministrators = getTotalAdministrators($db);
+$totalHospitals = getTotalHospitals($db);
+$totalPatients = getTotalPatients($db);
+$totalDoctors = getTotalDoctors($db);
+$totalContacts = getTotalContacts($db);
+$totalAppointments = getTotalAppointments($db);
+$totalposts = getTotalPosts($db);
+$totalpolls = getTotalpolls($db);
+$totalmedia = getTotalmedia($db);
+$totalvirus = getTotalvirus($db);
+$totaldesiese = getTotaldesiese($db);
+$totalallergies = getTotalallergies($db);
+$totalfractions = getTotalfractions($db);
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Admin Dashboard </title> 
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/
+	bootstrap/4.5.0/css/bootstrap.min.css">
+
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrTSNfxfbHuxg42LY6of8TaYyk50jnxRnM=" crossorigin="anonymous"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/fort-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-info bg-info">
+		<h5 class="text-white">Egypt Healthcare</h5>
+
+		<div class="mr-auto"></div>
+
+		<ul class="navbar-nav">
+			
+				<li class="nav-item">
+					<a href="index.html" class="nav-link text-white">
+						Home
+					</a>
+				</li>
+				<li class="nav-item">
+					<a href="adminLogin.html" class="nav-link text-white">
+						Admin
+					</a>
+				</li>
+				<li class="nav-item">
+					<a href="../doctor-sign-in.html" class="nav-link text-white">
+						Doctor
+					</a>
+				</li>
+				<li class="nav-item">
+					<a href="../patient-sign-in.html" class="nav-link text-white">
+						Patient
+					</a>
+				</li>
+				
+		</ul>
+		
+	</nav>
+
+    <div class="container-fluid">
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-md-2" style="margin-left: -30px;">
+						
+					<!-- Sidebar -->
+					<div class="list-group bg-info" style="height: 90vh;">
+						<a href="index.html" class="list-group-item list-group-item-action 
+						bg-info text-center text-white">Dashboard</a>
+						<a href="profile.html" class="list-group-item list-group-item-action 
+						bg-info text-center text-white">Profile</a>
+						<a href="admin.html" class="list-group-item list-group-item-action 
+						bg-info text-center text-white">Administrators</a>
+						<a href="hospital.html" class="list-group-item list-group-item-action 
+						bg-info text-center text-white">Hospitals</a>
+						<a href="doctor.html" class="list-group-item list-group-item-action 
+						bg-info text-center text-white">Doctors</a>
+						<a href="patient.html" class="list-group-item list-group-item-action 
+						bg-info text-center text-white">Patient</a>
+					</div>
+						
+				</div>
+                <div class="col-md-10">
+					<h4 class="my-2">Reports </h4>
+					<div class="col-md-12 my-1">
+						<div class="row">
+
+                <div class="col-md-3 bg-success mx-2 my-2" style="height: 130px;">
+                    <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-8">
+                                                                            
+                                    <h5 class="my-2 text-white" style="font-size:30px;"><?php echo $totalvirus; ?></h5>
+                                    <h5 class="text-white">Total</h5>
+                                    <h5 class="text-white">Viruses</h5>
+                                </div>
+                                <div class="col-md-4">
+                                    <a href="viruse.html">
+                                        <i class="fa fa-flag fa-3x my-4" style="color:white;"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <div class="col-md-3 bg-success mx-2 my-2" style="height: 130px;">
+                
+                <div class="col-md-12">
+                    <div class="row">
+                            <div class="col-md-8">
+                                                                        
+                                <h5 class="my-2 text-white" style="font-size:30px;"><?php echo $totaldesiese; ?></h5>
+                                <h5 class="text-white">Total</h5>
+                                <h5 class="text-white">Diseases</h5>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="disease.html">
+                                    <i class="fa fa-flag fa-3x my-4" style="color:white;"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 bg-success mx-2 my-2" style="height: 130px;">
+                    <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-8">
+                                                                            
+                                    <h5 class="my-2 text-white" style="font-size:30px;"><?php echo $totalfractions; ?></h5>
+                                    <h5 class="text-white">Total</h5>
+                                    <h5 class="text-white">Fractions</h5>
+                                </div>
+                                <div class="col-md-4">
+                                    <a href="fraction.html">
+                                        <i class="fa fa-flag fa-3x my-4" style="color:white;"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                       </div>
+                       
+                        <div class="col-md-3 bg-success mx-2 my-2" style="height: 130px;">
+                
+                            <div class="col-md-12">
+                                <div class="row">
+                                        <div class="col-md-8">
+                                                                                    
+                                            <h5 class="my-2 text-white" style="font-size:30px;"><?php echo $totalallergies; ?></h5>
+                                            <h5 class="text-white">Total</h5>
+                                            <h5 class="text-white">Allergies</h5>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <a href="allergie.html">
+                                                <i class="fa fa-flag fa-3x my-4" style="color:white;"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    
+                    
+                
+</div>
+</div>
+
+</div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

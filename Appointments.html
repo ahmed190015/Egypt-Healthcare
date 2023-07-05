@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<?php
+ include("Appointments.php");?>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bootstrap v5.2 Design Login Forms</title>
+        
+            <link rel="stylesheet" href="css/fontawesome.css">
+
+            <link rel="stylesheet" href="css/bootstrap.css">
+
+            <link rel="stylesheet" href="css/all.min.css">
+
+            <link rel="stylesheet" href="css/bootstrap.min.css">
+            <!-- <link rel="stylesheet" href="css/style - Contact.css"> -->
+            <link rel="stylesheet" href="css/style.css">
+
+    </head>
+
+    <body class="container">
+      <div class="container-fluid">
+          <nav class="  navbar  navbar-expand-lg navbar-right navbar-dark bg-dark bg-body-tertiary  mb-2" data-bs-theme="dark">
+            <a class="navbar-brand " href="#"><img class=" circle-img" src="images/logo2.png" width="40" height="40"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+              
+                  <div class="   collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav  navbar-right me-auto mb-2 mb-lg-0">
+                      <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="patient-index.html">Home</a>
+                      </li>
+                      
+                      
+                      <li class="nav-item">
+                        <a class="nav-link" href="doctors.html">Doctors</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="hospitals .html">Hospitals</a>
+                      </li>
+                      
+                      <li class="nav-item">
+                        <a class="nav-link" href="patient-details.html">Details</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="your-reports.html">Your Reports</a>
+                      </li>
+  
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          My Account
+                          </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                          <li><button class="dropdown-item account"> Account</button></li>
+                          <li><button class="dropdown-item contact"> Contacts</button></li>
+
+                          <li><button class="dropdown-item change-pass"> Change Password</button></li>
+                          <li><button class="dropdown-item l-out"> log-out</button></li>
+  
+  
+                        </ul>
+                      </li>
+                      
+  
+                      
+                      
+                      
+                    </ul>
+                        <form class="d-flex " role="search" method="get" style="position: absolute; right: 10px;">
+                          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                          <button class="btn btn-outline-primary me-2" type="submit">Search</button>
+                        </form>
+                  </div>
+                </nav> 
+
+    <div class="container mt-2 ">
+      $query = "SELECT * FROM calender WHERE doctor_id = :doctorID";
+  $stmt = $db->prepare($query);
+  $stmt->bindValue(':doctorID', $_SESSION['doctorID']);
+  $stmt->execute();
+  if ($stmt->rowCount() > 0) {
+    $row = $stmt->fetchALL(PDO::FETCH_ASSOC);
+  }
+       <div class="row ">
+        <div class="container col-md-4  " >
+          <div class="row col-md-12 d-flex  ">
+          <div class="doctor-details">
+            <img class=" col-md-12 mb-3 "
+            style="width: 120px;
+                   height: 120px;
+                   border-radius: 50%;
+                   background-color: aqua;
+           "  src="./uploads/<?phpecho($_SESSION['docimage']);?>">
+             
+           
+            <div class="col-md-12 mb-3">
+              Dr: <?php echo $_SESSION['docname'];?>
+            </div>
+            <div class=" col-md-12 mb-3">
+              speciality:<?php echo $_SESSION['speciality'];?> 
+            </div>
+            <div class=" col-md-12 mb-3">
+              Phone: <?php echo $_SESSION['phone'];?>
+            </div>
+            <div class=" col-md-12 mb-3">
+            Location:<?php echo $_SESSION['location'];?>
+            </div>
+            <?php
+                         foreach ($calender as $cal) {
+                             echo '<div class="col-md-12 mb-3">';
+                             echo 'Working Hours: ' . $cal['start_time'] . ' - ' . $cal['end_time'];
+                             echo '</div>';
+                             echo '<div class="col-md-12 mb-3">';
+                             echo 'Working Day: ' . $cal['date'];
+                             echo '</div>';
+                         }
+                         ?> 
+             <div class=" col-md-12 mb-3">
+              Experience:<?php //echo $_SESSION['Experience'];?>
+             </div>
+            
+
+            </div>
+
+          </div>
+        </div>
+
+        <div class="container col-md-8 mt-3  ">
+          <div class="row ">
+            <form action="" method="post" class="">
+              <div class="card col-md-12">
+                <div class="card-header  ">
+                    <div class="card-header mb-4">
+                     <h3 > Get appointment</h3>
+                </div>
+          
+            <div class="container   ">
+            <div class="row ">
+            <div class=" col-md-6 mb-3">
+              <h5 > User Name:
+                <input name="userName" id="userName" class="form-control" type="text"  required placeholder="User Name" class="col-md-7">
+                <br>
+                  <div class="alert alert-danger custom-alert">
+                    Should contain only characters <br> not empty <br> Length at least 4 character
+                  </div>
+                <br><br>
+            </h5>
+           </div>
+
+           <div class=" col-md-6 mb-3">
+            <h5> Phone Number:
+              <input name="phone" id="phone" class="form-control" type="tel" required placeholder="Phone Number">
+              <br>
+              <div class="alert alert-danger custom-alert">
+                Phone numbers are not empty <br>Phone numbers must be 11 numberss<br>Phone numbers are start (010, 011, 012, 015)
+              </div>
+              <br><br>
+          </h5>
+         </div>
+
+
+            <div class=" col-md-12 mb-3">
+              <h5> Select Date: 
+                <input id="date" class="form-control" type="text" name="date" placeholder="DD/MM/YYYY"
+                    onfocus="(this.type='date')" onblur="(this.type='text')" required>
+                    <br>
+                    <div class="alert alert-danger custom-alert">
+                      Please; Select your date
+                    </div>
+                    <br><br>
+            </h5>
+           </div>
+
+           <div class=" col-md-12 mb-3">
+            <h5> Select Time: 
+              <input id="Time" class="form-control mt-2" type="text" name="Time" placeholder="DD/MM/YYYY"
+                  onfocus="(this.type='Time')" onblur="(this.type='text')" required>
+                  <br>
+                  <div class="alert alert-danger custom-alert">
+                    Please; Select your time
+                  </div>                  
+                  <br><br>
+          </h5>
+         </div>
+        </div>
+      </div>
+         <div class=" col-md-12 mb-3 d-flex justify-content-center">
+
+            <input name="submit" id="submit" type="submit" class="btn-primary btn-lg btn mb-2 " value="Send appointment">
+
+          </div>
+
+          </form>
+
+          </div>
+         </div>
+        </div>
+      </div>
+
+       
+
+   
+      
+
+
+
+   
+    
+    <footer class="col-12 text-center mt-5 " >
+      <div class=" text-center col-md-12">
+      <i class="fa-brands fa-facebook col-md-1 "></i>
+      <i class="fa-brands fa-youtube col-md-1"></i>
+      <i class="fa-brands fa-instagram col-md-1"></i>
+      <i class="fa-brands fa-twitter col-md-1"></i>
+    </div>
+    <div class="footer text-center col-md-12">&trade;2023 All copy rights reserved to Egypt Healthcare</div>
+  </footer>
+    <script src="js/jquery-3.6.4.min.js.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/all.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/account.js"></script>
+    <script>
+      $(function() {
+
+          // UserName Validation
+        $('#userName').blur(function() {
+
+            var pattern = /^[a-zA-Z]*$/;
+            var username = $("#userName").val();
+            if(pattern.test(username) && username !== '' && username.length >=4 ) {
+                $(this).parent().find('.custom-alert').fadeOut(100);
+            } else {
+                $(this).parent().find('.custom-alert').fadeIn(100);
+            }
+
+        });
+      });
+
+       // Phone Validation
+    $('#phone').blur(function() {
+        
+        var phone_length = $("#phone").val().length;
+        var pattern = /^01[0125][0-9]{8}$/gm;
+        var phone = $("#phone").val();
+        if(phone_length === 11 && pattern.test(phone) && phone !== '') {
+           $(this).parent().find('.custom-alert').fadeOut(100);
+        } else {
+           $(this).parent().find('.custom-alert').fadeIn(100);
+        }
+    });
+
+    // Select Date Validation
+    $('#date').blur(function() {
+
+        var genderType = $("#date").val();
+        if(genderType !== '') {
+            $(this).parent().find('.custom-alert').fadeOut(100);
+        } else {
+            $(this).parent().find('.custom-alert').fadeIn(100);
+        }
+
+    });
+
+    // Select Time Validation
+    $('#Time').blur(function() {
+
+        var genderType = $("#Time").val();
+        if(genderType !== '') {
+            $(this).parent().find('.custom-alert').fadeOut(100);
+        } else {
+            $(this).parent().find('.custom-alert').fadeIn(100);
+        }
+
+    });
+    </script>
+
+      
+    
+    </body>
+     
+
+</html>
+
+
+
+
+

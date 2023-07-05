@@ -1,0 +1,320 @@
+*{
+  box-sizing: border-box;
+  color: black;
+  direction: rtl;
+}
+a{
+  color:black;
+  
+}
+body{
+  -webkit-border-image: linear-gradient(
+      to right,
+      #a8FF78,
+      #78FFD6
+ );
+;
+  background-image: linear-gradient(
+      to right,
+      #a8FF78,
+      #78FFD6
+ );
+ direction: rtl;
+}
+
+
+.body-container{
+              
+              height: 100vh;
+
+              display: grid;
+              grid-template-rows: 100px auto 80px;
+              grid-template-columns: repeat(9, 1fr);
+              grid-template-areas: "toggle  navbar navbar navbar navbar navbar navbar navbar navbar"
+                                   " sidebar contet contet contet  contet contet contet contet contet"
+                                   "footer footer  footer footer footer footer footer footer footer";
+              padding-top: 10px;
+
+}
+.toggle{
+  grid-area: toggle;
+  margin-top: 25px;
+  
+ 
+}
+.navbar-toggler{
+  display: inline-flex;
+  max-width: fit-content;
+  background-color: bisque;
+  line-height: 5px;
+  font-size: 20;
+  
+
+}
+
+
+.navbar{
+  grid-area: navbar;
+  
+  font-size: 18;
+  font-weight: bolder;
+  
+
+}
+ul{
+  list-style: none;
+  
+ 
+
+  
+
+
+}
+.nav-item{
+  width:15vw;
+  display: inline-flex;
+  justify-content: space-between;
+}
+
+.logo_main  img{
+  -webkit-border-radius:50%;
+  border-radius: 50%;
+  
+}
+
+.sidebar{
+  grid-area: sidebar;
+  visibility: hidden;
+  font-size: 18;
+  font-weight: bolder;
+  width: 11vw;
+  
+}
+
+
+.footer{
+  grid-area: footer;
+  background-color: yellow;
+}
+.egyhelth{
+  display: flex;
+  justify-content: center;
+  position: relative;
+  top: 100px;
+  font-size: 30px;
+  padding-bottom: 10px;
+            
+
+
+  }
+
+.mom{
+
+color: #fff;
+}
+.world{
+color: #ff0000;
+}
+
+
+.loimg img {
+position: absolute;
+top: 10px;
+left: 50%;
+right: 50%;
+border-radius: 50%;
+display: flex;
+justify-content: center;
+transform: translateX(20px);
+
+
+}
+.contet{
+  grid-area: contet;
+  display: flex;
+   
+}
+
+/* .details{
+
+position: absolute;
+top: 150px;
+  background-color: #ff0000;
+  display: flex;
+justify-content:center;
+background-color: #a6c0b2;
+width: 400px;;
+border-radius: 50px;
+height: fit-content;
+
+
+height: 450px;
+} */
+/* #profile-img{
+  width: 100px ;
+  height: 100px ;
+  border-radius: 50%;
+  display: flex;
+   margin-top: 10px;
+   background-color: #fff;
+   z-index: 3;
+   justify-content: center;
+   
+ 
+}
+.profile-img{
+  
+  display: flex;
+  z-index: 0;
+  justify-content: center;
+
+ 
+}
+
+
+select{
+        width: 215px;
+        display: block;
+} 
+
+.hos-spc{
+   
+  margin-right: -15px;
+  border-radius: 20px;
+
+}
+.det{
+
+      display: flex;
+      flex-direction: row;
+      height: 80vh;
+      position: absolute;
+      top: 130px;
+      width: 100vw;
+      justify-content: center;
+
+ 
+      
+}
+
+.details{
+  background-color: #ff0000;
+
+}
+section{
+          display: flex;
+          flex-basis: 50%;
+          /* margin:0px 20px; */
+}
+
+/* .det-form input{
+                /* display: flex; */
+                /* width: 20vw;
+                height: 5vh;
+
+}
+input[type="radio"] {
+                            height: 25px;
+                            width: 18px;
+                            font-size: 18px;
+                            
+
+
+                          }
+  
+.hos-spc {
+  display: block;
+  justify-content: center;
+
+  
+}
+.doc-doc label{
+
+  display: flex;
+  justify-content: center;
+}
+.doc-spc{
+  display: block;
+  justify-content: center;
+
+  
+}
+.doc-spc label{
+
+  display: flex;
+  justify-content: center;
+  margin-left: 160px;
+}
+.doc-or , .hos-or{
+ 
+  display:flex;
+  justify-content: center;
+
+}
+
+
+.hd{
+  display: flex;
+  justify-content: center;
+}
+
+
+div#h,div#d{
+  display: flex;
+  justify-content: center;
+
+
+}
+#sll{
+  display: flex;
+  justify-content: center;
+  margin-right:-170px;
+
+}
+.s input {
+  margin-top: 20px;
+  height: 25px;
+  font-size: 16px;
+  display: inline-flex;
+  width: 20px;
+  margin: 0.2px 1px 1px 1px;
+  
+  
+
+
+}
+.s div{
+ 
+  display:inline-flex;
+  margin-left: 5px;
+  width: 17vw;
+  flex-direction:row ;
+  flex-wrap: nowrap;
+
+
+  
+}
+.s label{
+  display: flex;
+  flex-basis: 150px;
+  margin-top: 15px;
+
+  
+
+}
+@media (max-width:768px) {
+  .det  {
+          flex-direction: column;
+          
+  }
+  
+  .det-form input{
+    display: flex;
+    width: 67vw;
+    height: 5vh;
+  }
+  
+
+
+
+}  */

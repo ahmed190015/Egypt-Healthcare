@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<?php include("your-reports.php");?>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bootstrap v5.2 Design Login Forms</title>
+        
+            <link rel="stylesheet" href="css/bootstrap.min.css">
+
+            <link rel="stylesheet" href="css/fontawesome.css"> 
+            <link rel="stylesheet" href="css/all.min.css">
+        
+            <link rel="stylesheet" href="css/bootstrap.css">
+        
+            <link rel="stylesheet" href="css/style.css">
+        
+    </head>
+
+    <body class="container">
+      
+
+    <div class="container ">
+       <div class="row ">
+        <nav class="  navbar  navbar-expand-lg navbar-right navbar-dark bg-dark bg-body-tertiary  mb-5" data-bs-theme="dark">
+                        
+          <a class="navbar-brand " href="#"><img class=" circle-img" src="images/logo2.png" width="40" height="40"></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+            
+                <div class="   collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav  navbar-right me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="patient-index.html">Home</a>
+                    </li>
+                    
+                    
+                    <li class="nav-item">
+                      <a class="nav-link" href="doctors.html">Doctors</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="hospitals .html">Hospitals</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                      <a class="nav-link" href="patient-details.html">Details</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="your-reports.html">Your Reports</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        My Account
+                        </a>
+                      <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><button class="dropdown-item account"> Account</button></li>
+                        <li><button class="dropdown-item contact"> Contacts</button></li>
+
+                        <li><button class="dropdown-item change-pass"> Change Password</button></li>
+                        <li><button class="dropdown-item l-out"> log-out</button></li>
+
+
+                      </ul>
+                    </li>
+                    
+
+                    
+                    
+                    
+                  </ul>
+                      <form class="d-flex " role="search" method="get" style="position: absolute; right: 10px;">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-primary me-2" type="submit">Search</button>
+                      </form>
+                </div>
+              </nav>   
+  
+        
+
+        <div class="container col-md-4  ">
+            <div class="row col-md-4">
+
+              <img class="report-img col-md-12 mb-3"
+               style="width: 100px;
+                      height: 100px;
+                      border-radius: 50%;
+                      background-color: aqua;
+              " src="./uploads/<?php echo $image;?>">
+                
+              <div class="rep-patient-name col-md-12 mb-3">
+                Name:<?php echo $name;?>
+              </div>
+              <div class="rep-patient-age col-md-12 mb-3">
+                Email:<?php echo $mail;?>
+              </div>
+
+              <div class="rep-patient-gender col-md-12 mb-3">
+                Gender:<?php echo $gender;?>
+              </div>
+             
+              <div class="rep-patient-blood-type col-md-12 mb-3">
+                Blood type:<?php echo $blood_type;?> 
+            </div>
+
+            
+              <div class="dropdown repo-drop">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Add report</button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item " id="des" href="#des">Diseases</a></li>
+                  <li><a class="dropdown-item " id="vir"  href="#vir">Viruses</a></li>
+                  <li><a class="dropdown-item " id="aller" href="#aller">Allergies</a></li>
+                  <li><a class="dropdown-item " id="frac" href="#frac">Fractions</a></li>
+                </ul>
+              </div>  
+             </div>
+          </div>
+
+
+          <div class="card text-center col-lg-8">
+            <div class="card-header ">
+                <div class="card-header ">
+              <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item" id="dess">
+                  <a class="nav-link active" aria-current="true" id="see-diseases" href="#see-diseases">Diseases</a></a>
+                </li>
+                <li class="nav-item" id="virrr">
+                  <a class="nav-link" id="see-viruses" href="#see-viruses">Viruses</a>
+                </li>
+                <li class="nav-item" id="allerr">
+                  <a class="nav-link" id="see-allergies" href="#see-allergies">Allergies</a>
+                </li>
+                <li class="nav-item" id="fracc">
+                    <a class="nav-link" id="see-fractions" href="#see-fractions">Fractions</a>
+                  </li>
+              </ul>
+            </div>
+           
+                    <div class="card-body col-lg-12 desss">
+                      
+            <?php
+            include("connect.php");
+            
+            // Retrieve diseases data
+            $sql = "SELECT * FROM diseases WHERE patient_id = :session_id";
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':session_id', $_SESSION['id'], PDO::PARAM_STR);
+            $stmt->execute();
+            
+            // Check if there are any diseases
+            if ($stmt->rowCount() > 0) {
+                $diseases = $stmt->fetchAll();
+            
+                foreach ($diseases as $disease) {
+                    ?>
+                        <h5 class="card-title">Diseases</h5>
+                        <p class="card-text"><?php echo $disease["name"]; ?></p>
+                        <div class="Repo-attached-files">
+                          Attached Files:<a href="'./uploads/<?php echo $disease['file'];?>" download><?php echo $disease["file"]; ?></a>
+                        </div>
+                        <div class="card-footer report-date">
+                            <?php echo date("M d, Y"); ?>
+                        </div>
+                        <Button class="btn btn-primary" id="de">Add diseases</Button>
+                        <?php
+                      }
+                  } else {
+                      echo "0 results";
+                  }
+                          ?>
+                    </div>
+                   
+                    <div class="card-body col-lg-12 virrr">
+                  <?php    
+            // Retrieve viruses data
+            $sql = "SELECT * FROM viruses WHERE patient_id = :session_id";
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':session_id', $_SESSION['id'], PDO::PARAM_STR);
+            $stmt->execute();
+            
+            // Check if there are any viruses
+            if ($stmt->rowCount() > 0) {
+                $viruses = $stmt->fetchAll();
+            
+                foreach ($viruses as $virus) {
+                    ?>
+                        <h5 class="card-title">Viruses</h5>
+                        <p class="card-text"><?php echo $virus["name"]; ?></p>
+                        <div class="Repo-attached-files">
+                          Attached Files:<a href="'./uploads/<?php echo $virus['file'];?>" download><?php echo $virus["file"]; ?></a>
+                        </div>
+                        <div class="card-footer report-date">
+                            <?php echo date("M d, Y"); ?>
+                        </div>
+                        <Button class="btn btn-primary" id="vi">Add viruses</Button>
+                     <?php
+                      }
+                    } else {
+                        echo "0 results";
+                    }
+                    ?>
+                    </div>
+                    
+                    <div class="card-body col-lg-12 allerrr">
+                      <?php
+            
+            // Retrieve allergies data
+            $sql = "SELECT * FROM allergies WHERE patient_id = :session_id";
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':session_id', $_SESSION['id'], PDO::PARAM_STR);
+            $stmt->execute();
+            
+            // Check if there are any allergies
+            if ($stmt->rowCount() > 0) {
+                $allergies = $stmt->fetchAll();
+            
+                foreach ($allergies as $allergy) {
+                    ?>
+                        <h5 class="card-title">Allergies</h5>
+                        <p class="card-text"><?php echo $allergy["name"]; ?></p>
+                        <div class="Repo-attached-files">
+                          Attached Files:<a href="'./uploads/<?php echo $allergy['file'];?>" download><?php echo $allergy["file"]; ?></a>
+                        </div>
+                        <div class="card-footer report-date">
+                            <?php echo date("M d, Y"); ?>
+                        </div>
+                        <Button class="btn btn-primary" id="al">Add allergies</Button>
+                        <?php
+                      }
+                  } else {
+                      echo "0 results";
+                  }?>
+                      </div>
+                   
+                    <div class="card-body col-lg-12 fraccc">
+                      <?php
+            
+                      // Retrieve fractions data
+                      $sql = "SELECT * FROM fractions WHERE patient_id = :session_id";
+                      $stmt = $db->prepare($sql);
+                      $stmt->bindParam(':session_id', $_SESSION['id'], PDO::PARAM_STR);
+                      $stmt->execute();
+                      
+                      // Check if there are any fractions
+                      if ($stmt->rowCount() > 0) {
+                          $fractions = $stmt->fetchAll();
+                      
+                          foreach ($fractions as $fraction) {
+                              ?>
+                        <h5 class="card-title">Fractions</h5>
+                        <p class="card-text"><?php echo $fraction["name"]; ?></p>
+                        <div class="Repo-attached-files">
+                            Attached Files:<a href="'./uploads/<?php echo $fraction['file'];?>" download><?php echo $fraction["file"]; ?></a>
+                        </div>
+                        <div class="card-footer report-date">
+                            <?php echo date("M d, Y"); ?>
+                        </div>
+                        <Button class="btn btn-primary" id="fr">Add fractions</Button>
+                      <?php
+                      }
+                    } else {
+                        echo "0 results";
+                    }?>
+                    </div>
+                    <?php
+            
+            
+            // Close the connection to the database
+            $db = null;
+            ?>
+            
+            
+            
+
+
+            
+            
+
+           <form class="dess"name="form1" action="your-reports.php" enctype="multipart/form-data" method="POST">
+            <div class="card-body col-lg-12 ">
+                <h5 class="card-title">Add diseases</h5>
+                    <textarea name="diseases_text" id="diseases_text" class="col-md-12" rows="12">
+
+                    </textarea>
+                    <Input name="desfile" type="file"></Input>
+                    <div class="card-footer report-date">
+                      2 days ago
+                    </div>
+                    <input name="form1" type="submit" class="btn btn-primary" value="Save report"></input>
+              </div>
+
+            </form>
+            <form class="virr" method="POST" enctype="multipart/form-data" action="your-reports.php">
+              <div class="card-body col-lg-12 ">
+                <h5 class="card-title">Add viruses</h5>
+                    <textarea name="viruses_text" class="col-md-12" rows="12">
+
+                    </textarea>
+                    <Input name="virfile" type="file"></Input>
+                    <div class="card-footer report-date">
+                      2 days ago
+                    </div>
+                    <input name="form2" type="submit" class="btn btn-primary" value="Save report"></input>
+              </div>
+            </form>
+
+            <form enctype="multipart/form-data" class="allerr" method="POST" action="your-reports.php">
+              <div class="card-body col-lg-12 ">
+                <h5 class="card-title">Add allergies</h5>
+                    <textarea name="allergies_text" class="col-md-12" rows="12">
+
+                    </textarea>
+                    <Input name="allfile" type="file"></Input>
+                    <div class="card-footer report-date">
+                      2 days ago
+                    </div>
+                    <input name="form3" type="submit" class="btn btn-primary" value="Save report"></input>
+              </div>
+            </form>
+
+            <form enctype="multipart/form-data" class="fracc" action="your-reports.php" method="POST">
+              <div class="card-body col-lg-12 ">
+                <h5 class="card-title">Add fractions</h5>
+                    <textarea name="fractions_text" class="col-md-12" rows="12">
+
+                    </textarea>
+                    <Input name="fracfile" id="fracfile" type="FILE"></Input>
+                    <div class="card-footer report-date">
+                      2 days ago
+                    </div>
+                    <input name="form4" type="submit" class="btn btn-primary" value="Save report"></input>
+              </div>
+            </form>
+
+
+
+          </div>
+
+        </div>
+    </div>
+    
+    <footer class="col-12 p-1 " style="margin-top: 125px;">
+      <div class=" text-center col-md-12 d-flex justify-content-center mt-2 mb-2">
+        <i class="fa-brands fa-facebook col-md-1 "></i>
+        <i class="fa-brands fa-youtube col-md-1"></i>
+        <i class="fa-brands fa-instagram col-md-1"></i>
+        <i class="fa-brands fa-twitter col-md-1"></i>
+      </div>
+      <div class="footer text-center col-md-12">&trade;2023 All copy rights reserved to Egypt Healthcare</div>
+      </footer>
+    <script src="js/jquery-3.6.4.min.js.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/all.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/your-reports.js"></script>
+    <script>
+
+
+            $("ul li a").on("click", function() {
+                    $("a").removeClass("active");
+                    $(this).addClass("active");
+                  });
+
+                  let contact = document.querySelector(".contact");
+	contact.onclick = function () {
+	  window.open("patient-contacts.html", "_self",);
+		
+
+		
+	                          };
+
+                  let acc = document.querySelector(".account");
+                    acc.onclick = function () {
+                        window.open("patient-details.html", "_self",);
+                
+                        
+                    };
+                
+                
+                    let changepass = document.querySelector(".change-pass");
+                    changepass.onclick = function () {
+                        window.open("forget-password copy.html", "_self",);
+                
+                        
+                    };
+                
+                
+                    let logout = document.querySelector(".l-out");
+                    logout.onclick = function () {
+                        window.open("logout.php", "_self",);
+                
+                        
+                    };
+    </script>
+
+
+            
+    </body>
+    
+</html>

@@ -1,0 +1,833 @@
+<!doctype html>
+<?php include ("doctor-details.php");?>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css.map">
+    <link rel="stylesheet" href="css/fontawesome.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="css/style.css">
+
+
+
+
+    <title>Doctor details</title>
+
+            </head>
+
+      <body class="container-fluid">
+        <div class="container">
+          <nav class="  navbar  navbar-expand-lg navbar-right navbar-dark bg-dark bg-body-tertiary  mb-2" data-bs-theme="dark">
+                  
+            <a class="navbar-brand " href="#"><img class=" circle-img" src="images/logo2.png" width="40" height="40"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+                    
+                        <div class="   collapse navbar-collapse" id="navbarSupportedContent">
+                          <ul class="navbar-nav  navbar-right me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                              <a class="nav-link active" aria-current="page" href="doc-index.html">Home</a>
+                            </li>
+                            
+                            <li class="nav-item">
+                              <a class="nav-link" href="doc-Face-detection.html">Face detection</a>
+                            </li>
+                            
+                            <li class="nav-item">
+                              <a class="nav-link" href="doctor-details.html">Details</a>
+                            </li>
+          
+                            <li class="nav-item">
+                              <a class="nav-link" href="requests.html">Requests</a>
+                            </li>
+          
+                            <li class="nav-item dropdown">
+                              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                My Account
+                                </a>
+                              <ul class="dropdown-menu dropdown-menu-dark">
+                                <li><button class="dropdown-item account"> Account</button></li>
+                                <li><button class="dropdown-item contact"> Contacts</button></li>
+          
+                                <li><button class="dropdown-item change-pass"> Change Password</button></li>
+                                <li><button class="dropdown-item l-out"> log-out</button></li>
+          
+          
+                              </ul>
+                            </li>
+                            
+                            
+                          </ul>
+                              <form class="d-flex " role="search" method="get" style="position: absolute; right: 10px;">
+                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-primary me-2" type="submit">Search</button>
+                              </form>
+                        </div>
+                      </nav>
+      
+                <div class="container py-5 h-100">
+                  <div class="row ">
+
+                    
+
+                    <div class="container col-md-4">
+                      <div class="row col-md-12 d-flex justify-content-start  ">
+                      <div class="hospital-details-side">
+                        <img class=" col-md-12 mb-md-5 mb-4"
+                        style="width: 120px;
+                               height: 120px;
+                               border-radius: 50%;
+                               background-color: aqua;
+                       " src="./uploads/<?php echo $imagedoc;?>">
+                         
+                       
+                        <div class="col-md-12 mb-3">
+                          Dr: <?php echo $name;?>
+                        </div>
+                        
+                        <div class=" col-md-12 mb-3">
+                          Phone:<?php echo $phone;?> 
+                        </div>
+                        <div class=" col-md-12 mb-3">
+                          Email:<?php echo $email;?>
+                         </div>
+                         <?php
+                         $query = "SELECT * FROM calendar WHERE doctor_id = :doctorID";
+  $stmt = $db->prepare($query);
+  $stmt->bindValue(':doctorID', $_SESSION['id']);
+  $stmt->execute();
+
+  // Check if the doctor record exists
+  if ($stmt->rowCount() > 0) {
+      $row = $stmt->fetchALL(PDO::FETCH_ASSOC);
+                         foreach ($row as $cal) {
+                             echo '<div class="col-md-12 mb-3">';
+                             echo 'Working Day: ' . $cal['date'];
+                             echo '</div>';
+                             echo '<div class="col-md-12 mb-3">';
+                              echo 'Working Hours: ' . $cal['start_time'] . ' - ' . $cal['end_time'];
+                              echo '</div>';
+                         }}
+                         ?>                     
+                         <div class=" col-md-12 mb-3">
+                          speciality: <?php echo $speciality;?>
+                        </div>
+                        <div class=" col-md-12 mb-3">
+                          National Id: <?php echo $national_id;?>
+                        </div>
+                        <div class=" col-md-12 mb-3">
+                          Address:<?php echo $location;?>
+                          </div>
+                        
+            
+                        </div>
+            
+                      </div>
+                    </div>
+
+                    
+
+                    <div class="container col-md-8 ">
+                       <div class="row d-flex ">
+
+
+                        <div class="card text-center col-lg-12 mb-4 ">
+                          <div class="card-header  ">
+                        <ul class="nav nav-tabs card-header-tabs">
+                          <li class="nav-item" >
+                            <a class="nav-link" id="fill-det" href="#fill-det">Fill Details</a>
+                          </li>
+                          <li class="nav-item" >
+                            <a class="nav-link " id="edit-det" href="#edit-det">Edit Details </a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link " id="fill-cal" href="#fill-cal">Fill calendar</a>
+                          </li>
+                          <li class="nav-item " >
+                            <a class="nav-link " id="edit-cal" href="#edit-cal">Edit calendar</a>
+                          </li>
+                          
+                        </ul>
+                      </div>
+                        </div>
+
+                        <div class="card-body col-lg-12 ">
+                          <img class=" det-beauty col-12" src="images/7.avif" alt="">
+                        </div>
+
+                        <div class="card-body col-lg-12 fill-calendar ">
+                          <h3 class="card-title text-center mb-4" style="color: yellow;">Fill/Edit calendar</h3>
+                          <form method="POST" action="doctor-details.php" id="calendar" name="calendar">
+                              
+                            <div class="row col-lg-12">
+                              <div class="col-md-12 mb-4 d-flex justify-content-center">
+                                
+                                <table class="calendar col-lg-12 border m-3">
+                                  <tr>
+                                    <td >Saturday</td>
+                                    <td>
+                                       <input type="text" id="start" name="sTime0" placeholder="Star time"
+                                      onfocus="(this.type='Time')" onblur="(this.type='text')" >
+                                      <br>
+                                      <div class="alert alert-danger custom-alert">
+                                        Please; Select start time
+                                      </div>
+                                    </td>
+                                    <td> 
+                                      <input type="text" id="end" name="eTime0" placeholder="End time"
+                                        onfocus="(this.type='Time')" onblur="(this.type='text')" >>
+                                        <br>
+                                        <div class="alert alert-danger custom-alert">
+                                          Please; Select end time
+                                        </div>
+                                    </td>
+                                  </tr>
+                                
+                                  <tr>
+                                    <td >Sunday</td>
+                                    <td> 
+                                      <input type="text" id="start1" name="sTime1" placeholder="Star time"
+                                      onfocus="(this.type='Time')" onblur="(this.type='text')" >
+                                      <br>
+                                      <div class="alert alert-danger custom-alert">
+                                        Please; Select start time
+                                      </div>
+                                    </td>
+                                    <td> 
+                                      <input type="text" id="end1" name="eTime1" placeholder="End time"
+                                        onfocus="(this.type='Time')" onblur="(this.type='text')" >
+                                        <br>
+                                        <div class="alert alert-danger custom-alert">
+                                          Please; Select end time
+                                        </div>
+                                    </td>
+                                    
+                                  </tr>
+                                  <hr>
+
+                                  <tr>
+                                    <td>Monday</td>
+                                    <td> 
+                                      <input type="text" id="start2" name="sTime2" placeholder="Star time"
+                                      onfocus="(this.type='Time')" onblur="(this.type='text')" >
+                                      <br>
+                                        <div class="alert alert-danger custom-alert">
+                                          Please; Select start time
+                                        </div>
+                                    </td>
+                                    <td> 
+                                      <input type="text" id="end2" name="eTime2" placeholder="End time"
+                                        onfocus="(this.type='Time')" onblur="(this.type='text')" >
+                                        <br>
+                                        <div class="alert alert-danger custom-alert">
+                                          Please; Select end time
+                                        </div>
+                                    </td>
+                                    
+                                  </tr>
+                            
+                                  <tr>
+                                    <td >Tuesday</td>
+                                    <td> 
+                                      <input type="text" id="start3" name="sTime3" placeholder="Star time"
+                                      onfocus="(this.type='Time')" onblur="(this.type='text')" >
+                                      <br>
+                                      <div class="alert alert-danger custom-alert">
+                                        Please; Select start time
+                                      </div>
+                                    </td>
+                                    <td> 
+                                      <input type="text" id="end3" name="eTime3" placeholder="End time"
+                                        onfocus="(this.type='Time')" onblur="(this.type='text')" >
+                                        <br>
+                                        <div class="alert alert-danger custom-alert">
+                                          Please; Select end time
+                                        </div>
+                                      </td>
+                                    
+                                  </tr>
+                            
+                                  <tr>
+                                    <td >Wednesday</td>
+                                    <td> 
+                                      <input type="text" id="start4" name="sTime4" placeholder="Star time"
+                                      onfocus="(this.type='Time')" onblur="(this.type='text')" >
+                                      <br>
+                                      <div class="alert alert-danger custom-alert">
+                                        Please; Select start time
+                                      </div>
+                                    </td>
+                                    <td> 
+                                      <input type="text" id="end4" name="eTime4" placeholder="End time"
+                                        onfocus="(this.type='Time')" onblur="(this.type='text')" >
+                                        <br>
+                                        <div class="alert alert-danger custom-alert">
+                                          Please; Select end time
+                                        </div>
+                                      </td>
+                                    
+                                  </tr>
+                            
+                                  <tr>
+                                    <td >Thursday</td>
+                                    <td> 
+                                      <input type="text" id="start5" name="sTime5" placeholder="Star time"
+                                      onfocus="(this.type='Time')" onblur="(this.type='text')" >
+                                      <br>
+                                      <div class="alert alert-danger custom-alert">
+                                        Please; Select start time
+                                      </div>
+                                    </td>
+                                    <td> 
+                                      <input type="text" id="end5" name="eTime5" placeholder="End time"
+                                        onfocus="(this.type='Time')" onblur="(this.type='text')" >
+                                        <br>
+                                        <div class="alert alert-danger custom-alert">
+                                          Please; Select end time
+                                        </div>
+                                      </td>
+                                    
+                                  </tr>
+                            
+                            
+                                  <tr>
+                                    <td >Friday</td>
+                                    <td> 
+                                      <input type="text" id="start6" name="sTime6" placeholder="Star time"
+                                      onfocus="(this.type='Time')" onblur="(this.type='text')" >
+                                      <br>
+                                      <div class="alert alert-danger custom-alert">
+                                        Please; Select start time
+                                      </div>
+                                    </td>
+                                    <td> 
+                                      <input type="text" id="end6" name="eTime6" placeholder="End time"
+                                        onfocus="(this.type='Time')" onblur="(this.type='text')" >
+                                        <br>
+                                        <div class="alert alert-danger custom-alert">
+                                          Please; Select end time
+                                        </div>
+                                      </td>
+                                    
+                                  </tr>
+                            
+                              </table>
+                              </div>
+                              <button name="calendar" id="calendar" class="col-md-3 btn btn-lg btn-primary m-auto">Save Calender</button>
+
+                             </div>
+              
+                          </form>
+                        </div>
+                      
+                      
+                     
+                      <div class="card-body col-lg-12 fill-details ">
+                        <h3 class="card-title text-center mb-3" style="color: yellow;">Fill/Edit Details</h3>
+                        <form method="POST" id="details" name="details" enctype="multipart/form-data"  action="doctor-details.php">
+                            
+                          <div class="row">
+                            <div class="col-md-12 mb-4 d-flex justify-content-center">
+                              <div class=" me-5 " id="details-img" style="
+                              height: 120px;
+                              width: 120px;
+                              border-radius: 50%;
+                              display: flex;
+                              justify-content: center;
+                              background-color: aqua;
+                              align-content: center;
+                              align-items: center;
+                          "> 
+                                
+                                <div style="display:none" >
+                                  <input name="det-img" id="det-img" class="m-auto d-flex justify-content-center mt-4  mb-4" type="file">
+                                 
+                                </div>
+                                <label for="det-img"  title="Drag image"> <i class="fa-solid fa-user m-auto" style="font-size: 80px;"></i></label>
+                              </div>
+                            </div>
+
+
+
+                            <div class="col-md-6 mb-4">
+                              <div class="form-outline">
+                                <label class="form-label" for="DoctorFullName">Doctor full Name</label>
+                                <input type="text" id="DoctorFullName" name="DoctorFullName"  class="form-control form-control-lg" />
+                                <br>
+                                <div class="alert alert-danger custom-alert">
+                                  Should contain only characters <br> not empty <br> Length at least 4 character
+                                </div>
+                              </div>
+            
+                            </div>
+
+                            <div class="col-md-6 mb-4 pb-2">
+            
+                              <div class="form-outline">
+                                <label class="form-label" for="phoneNumber">Phone Number</label>
+                                <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control form-control-lg" />
+                                <br>
+                                <div class="alert alert-danger custom-alert">
+                                  Phone numbers are not empty <br>Phone numbers must be 11 numberss<br>Phone numbers are start (010, 011, 012, 015)
+                                </div>
+                              </div>
+            
+                            </div> 
+
+                            <div class="col-md-12 mb-4 pb-2">
+            
+                              <div class="form-outline">
+                                <label class="form-label" for="address">Address in datails</label>
+                                <input type="text" id="address" name="address" class="form-control form-control-lg" />
+                                <br>
+                                <div class="alert alert-danger custom-alert">
+                                  Please, Enter address 
+                                </div>
+                              </div>
+            
+                            </div>
+
+
+
+                            <div class="col-md-12 mb-4">
+            
+                              <div class="form-outline">
+                                <label class="form-label" for="Location">Location url</label>
+                                <input type="url" id="Location" name="Location" class="form-control form-control-lg" />
+                                <br>
+                                <div class="alert alert-danger custom-alert">
+                                  Please, Enter URL location 
+                                </div>
+                              </div>
+            
+                            </div>
+                          </div>
+                
+                          <div class="d-flex justify-content-center " >
+                            <div class="col-sm-6 col-md-6 mb-3 " >
+                            <label class="form-label">Choose the medical speciality</label>
+
+                            <select name="speciality" id="speciality" class="form-select form-control  " aria-label="Default select example" >
+                              <option value="Pediatrics">Pediatrics</option>
+                              <option value="Dentistry">Dentistry</option>
+                              <option value="Ophthalmology">Ophthalmology</option>
+                              <option value="Ear, nose and throat (ENT)">Ear, nose and throat (ENT)</option>
+                              <option value="Internal Medicine">Internal Medicine</option>
+                              <option value="Nephrology">Nephrology</option>
+                              <option value="Neurology">Neurology</option>
+                              <option value="Obstetrics and Gynecology">Obstetrics and Gynecology</option>
+                              <option value="General surgery">General surgery</option>
+                              <option value="Gastroenterology">Gastroenterology</option>
+                              <option value="Endocrinology">Endocrinology</option>
+                              <option value="Dermatology">Dermatology</option>
+                              <option value="Hematology">Hematology</option>
+                              <option value="Hepatology">Hepatology</option>
+                              <option value="Psychiatry">Psychiatry</option>
+                              <option value="Urology">Urology</option>
+                              <option value="Rheumatology">Rheumatology</option>
+    
+                            </select>
+                            <br>
+                            <div class="alert alert-danger custom-alert">
+                              Please; Choose the medical speciality
+                            </div>
+                          </div>
+                        </div>
+
+
+
+              <div class="d-flex justify-content-center " >
+                <div class="col-sm-6 col-md-6 mb-3 text-center" >
+                    
+                          <div class="mt-4 pt-2 text-center">
+                            <input name="details" id="details" class="btn btn-primary btn-lg" type="submit" value="Save details" />
+                          </div>
+
+                          
+            
+                        </form>
+
+
+                      </div>
+                      
+                      </div>
+                    </div>
+
+                    
+                  </div>
+                </div>
+                </div>
+
+
+                </div>
+              </div>
+
+              <footer class="col-12 text-center" style="margin-top: 125px;">
+                <div class=" text-center col-md-12">
+                <i class="fa-brands fa-facebook col-md-1 "></i>
+                <i class="fa-brands fa-youtube col-md-1"></i>
+                <i class="fa-brands fa-instagram col-md-1"></i>
+                <i class="fa-brands fa-twitter col-md-1"></i>
+              </div>
+              <div class="footer text-center col-md-12">&trade;2023 All copy rights reserved to Egypt Healthcare</div>
+            </footer>
+                <script src="js/jquery-3.6.4.min.js.js"></script>
+                <script src="js/bootstrap.bundle.min.js"></script>
+                <script src="js/all.min.js"></script>
+                <Script src="js/bootstrap.min.js"></Script>
+                
+              
+                <script >
+
+                  $(function() {
+
+                       // UserName Validation
+                      $('#DoctorFullName').blur(function() {
+
+                          var pattern = /^[a-zA-Z]*$/;
+                          var username = $("#DoctorFullName").val();
+                          if(pattern.test(username) && username !== '' && username.length >=4 ) {
+                              $(this).parent().find('.custom-alert').fadeOut(100);
+                          } else {
+                              $(this).parent().find('.custom-alert').fadeIn(100);
+                          }
+
+                      });
+
+                         // Phone Validation
+                      $('#phoneNumber').blur(function() {
+                          
+                          var phone_length = $("#phoneNumber").val().length;
+                          var pattern = /^01[0125][0-9]{8}$/gm;
+                          var phone = $("#phoneNumber").val();
+                          if(phone_length === 11 && pattern.test(phone) && phone !== '') {
+                            $(this).parent().find('.custom-alert').fadeOut(100);
+                          } else {
+                            $(this).parent().find('.custom-alert').fadeIn(100);
+                          }
+                      }); 
+
+                         // Address Validation
+                      $('#address').blur(function() {
+
+                        var pattern = /^[a-zA-Z]*$/;
+                        var username = $("#address").val();
+                        if(pattern.test(username) && username !== '' ) {
+                            $(this).parent().find('.custom-alert').fadeOut(100);
+                        } else {
+                            $(this).parent().find('.custom-alert').fadeIn(100);
+                        }
+
+                      });
+
+                      // URL Location Validation
+                      $('#Location').blur(function() {
+
+                        var pattern = /^[a-zA-Z]*$/;
+                        var username = $("#Location").val();
+                        if(pattern.test(username) && username !== '' ) {
+                            $(this).parent().find('.custom-alert').fadeOut(100);
+                        } else {
+                            $(this).parent().find('.custom-alert').fadeIn(100);
+                        }
+
+                      });
+
+                        // Select Start Time Work of Sunday Validation
+                      $('#start').blur(function() {
+
+                          var genderType = $("#start").val();
+                          if(genderType !== '') {
+                              $(this).parent().find('.custom-alert').fadeOut(100);
+                          } else {
+                              $(this).parent().find('.custom-alert').fadeIn(100);
+                          }
+
+                      });
+
+                      // Select End Time Work  of Sunday Validation
+                      $('#end').blur(function() {
+
+                          var genderType = $("#end").val();
+                          if(genderType !== '') {
+                              $(this).parent().find('.custom-alert').fadeOut(100);
+                          } else {
+                              $(this).parent().find('.custom-alert').fadeIn(100);
+                          }
+
+                      });
+
+                      // Select Start Time Work of Saturday Validation
+                      $('#start1').blur(function() {
+
+                          var genderType = $("#start1").val();
+                          if(genderType !== '') {
+                              $(this).parent().find('.custom-alert').fadeOut(100);
+                          } else {
+                              $(this).parent().find('.custom-alert').fadeIn(100);
+                          }
+
+                      });
+
+                      // Select End Time Work of Saturday Validation
+                      $('#end1').blur(function() {
+
+                          var genderType = $("#end1").val();
+                          if(genderType !== '') {
+                              $(this).parent().find('.custom-alert').fadeOut(100);
+                          } else {
+                              $(this).parent().find('.custom-alert').fadeIn(100);
+                          }
+
+                      });
+
+                        // Select Start Time Work of Monday Validation
+                        $('#start2').blur(function() {
+
+                          var genderType = $("#start2").val();
+                          if(genderType !== '') {
+                              $(this).parent().find('.custom-alert').fadeOut(100);
+                          } else {
+                              $(this).parent().find('.custom-alert').fadeIn(100);
+                          }
+
+                      });
+
+                      // Select End Time Work of Monday Validation
+                      $('#end2').blur(function() {
+
+                          var genderType = $("#end2").val();
+                          if(genderType !== '') {
+                              $(this).parent().find('.custom-alert').fadeOut(100);
+                          } else {
+                              $(this).parent().find('.custom-alert').fadeIn(100);
+                          }
+
+                      });
+
+                        // Select Start Time Work of Tuesday Validation
+                        $('#start3').blur(function() {
+
+                          var genderType = $("#start3").val();
+                          if(genderType !== '') {
+                              $(this).parent().find('.custom-alert').fadeOut(100);
+                          } else {
+                              $(this).parent().find('.custom-alert').fadeIn(100);
+                          }
+
+                      });
+
+                      // Select End Time Work of Tuesday Validation
+                      $('#end3').blur(function() {
+
+                          var genderType = $("#end3").val();
+                          if(genderType !== '') {
+                              $(this).parent().find('.custom-alert').fadeOut(100);
+                          } else {
+                              $(this).parent().find('.custom-alert').fadeIn(100);
+                          }
+
+                      });
+
+                      // Select Start Time Work of Wednesday Validation
+                      $('#start4').blur(function() {
+
+                          var genderType = $("#start4").val();
+                          if(genderType !== '') {
+                              $(this).parent().find('.custom-alert').fadeOut(100);
+                          } else {
+                              $(this).parent().find('.custom-alert').fadeIn(100);
+                          }
+
+                      });
+
+                      // Select End Time Work of Wednesday Validation
+                      $('#end4').blur(function() {
+
+                          var genderType = $("#end4").val();
+                          if(genderType !== '') {
+                              $(this).parent().find('.custom-alert').fadeOut(100);
+                          } else {
+                              $(this).parent().find('.custom-alert').fadeIn(100);
+                          }
+
+                      });
+
+                      // Select Start Time Work of Thursday Validation
+                      $('#start5').blur(function() {
+
+                          var genderType = $("#start5").val();
+                          if(genderType !== '') {
+                              $(this).parent().find('.custom-alert').fadeOut(100);
+                          } else {
+                              $(this).parent().find('.custom-alert').fadeIn(100);
+                          }
+
+                      });
+
+                      // Select End Time Work of Thursday Validation
+                      $('#end5').blur(function() {
+
+                          var genderType = $("#end5").val();
+                          if(genderType !== '') {
+                              $(this).parent().find('.custom-alert').fadeOut(100);
+                          } else {
+                              $(this).parent().find('.custom-alert').fadeIn(100);
+                          }
+
+                      });
+
+                      // Select Start Time Work of Friday Validation
+                      $('#start6').blur(function() {
+
+                          var genderType = $("#start6").val();
+                          if(genderType !== '') {
+                              $(this).parent().find('.custom-alert').fadeOut(100);
+                          } else {
+                              $(this).parent().find('.custom-alert').fadeIn(100);
+                          }
+
+                      });
+
+                      // Select End Time Work of Friday Validation
+                      $('#end6').blur(function() {
+
+                          var genderType = $("#end6").val();
+                          if(genderType !== '') {
+                              $(this).parent().find('.custom-alert').fadeOut(100);
+                          } else {
+                              $(this).parent().find('.custom-alert').fadeIn(100);
+                          }
+
+                      });
+
+                       // Choose Speciality Validation
+                      $('#speciality').blur(function() {
+
+                          var Spec = $("#speciality").val();
+                          if( Spec !== '' ) {
+                              $(this).parent().find('.custom-alert').fadeOut(100);
+                          } else {
+                              $(this).parent().find('.custom-alert').fadeIn(100);
+                          }
+
+                      });
+
+                  });
+
+                  document.querySelector(".fill-details").style.display = "none";
+                       document.querySelector(".fill-calendar").style.display = "none";
+                  
+                      let fdetail = document.querySelector("#fill-det");
+                      fdetail.onclick = function () {
+                          document.querySelector(".fill-details").style.display = "block";
+                          document.querySelector(".det-beauty").style.display = "none";
+                          document.querySelector(".fill-calendar").style.display = "none";
+                  
+                          
+                      };
+                  
+                      let edetail = document.querySelector("#edit-det");
+                      edetail.onclick = function () {
+                          document.querySelector(".fill-details").style.display = "block";
+                          document.querySelector(".det-beauty").style.display = "none";
+                          document.querySelector(".fill-calendar").style.display = "none";
+                  
+                          
+                      };
+                  
+                      let fcal = document.querySelector("#fill-cal");
+                      fcal.onclick = function () {
+                          document.querySelector(".fill-details").style.display = "none";
+                          document.querySelector(".det-beauty").style.display = "none";
+                          document.querySelector(".fill-calendar").style.display = "block";
+                  
+                          
+                      };
+                  
+                      let ecal = document.querySelector("#edit-cal");
+                      ecal.onclick = function () {
+                          document.querySelector(".fill-details").style.display = "none";
+                          document.querySelector(".det-beauty").style.display = "none";
+                          document.querySelector(".fill-calendar").style.display = "block";
+                  
+                          
+                      };
+                  
+                      
+                  
+                  
+                      let contact = document.querySelector(".contact");
+    contact.onclick = function () {
+      window.open("doctor-contacts.html", "_self",);
+      
+  
+      
+    };
+  
+                  
+                      let acc = document.querySelector(".account");
+                      acc.onclick = function () {
+                          window.open("doctor-details.html", "_self",);
+                  
+                          
+                      };
+                  
+                  
+                      let changepass = document.querySelector(".change-pass");
+                      changepass.onclick = function () {
+                          window.open("forget-password copy.html", "_self",);
+                  
+                          
+                      };
+                  
+                  
+                      let logout = document.querySelector(".l-out");
+                      logout.onclick = function () {
+                          window.open("logout.php", "_self",);
+                  
+                          
+                      };
+                  
+                      
+                  
+                      $("ul li a").on("click", function() {
+                          $("a").removeClass("active");
+                          $(this).addClass("active");
+                        });
+                  
+                        
+                      
+                      
+                                  </script>
+
+            
+
+                
+            
+                  
+                
+    </body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
